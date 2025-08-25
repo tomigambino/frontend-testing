@@ -1,0 +1,28 @@
+.home-container {
+  display: flex;
+  min-height: calc(100vh - 60px - 50px); /* alto total menos navbar y footer */
+}
+
+app-sidebar {
+  width: 200px;
+  flex-shrink: 0;
+}
+
+.home-content {
+  flex: 1;
+  padding: 1rem;
+  background: #f8f8f8;
+}
+
+/* Grid de productos */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.product-card {
+  background: linear-gradient(135deg, #4caf50, #81c784);
+  height: 150px;
+  border-radius: 8px;
+}

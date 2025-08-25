@@ -1,0 +1,18 @@
+.navbar {
+    background-color: var(--background-navbar);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1rem 1rem 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.icon{
+    height: 2rem;
+    padding: 0.4rem;
+    color: var(--color-icons-navbar);
+}
+

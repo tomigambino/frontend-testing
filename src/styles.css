@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --background-navbar: #89d957;
+    --color-icons-navbar: red;
+    --blanco: #ffffff;
+    --fuente-principal: 'Montserrat', sans-serif;
+    --fuente-titulos: 'Oswald', sans-serif;
+    --fuente-contenido-tabla: 'Roboto', sans-serif;
+    --fuente-numeros-pgainacion: 'Alata', sans-serif;
+}
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
