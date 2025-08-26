@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-    --background-navbar: #89d957;
+    --background-navbar: linear-gradient(to right, #89d957, #c9e265);
     --color-icons-navbar: red;
     --blanco: #ffffff;
     --fuente-principal: 'Montserrat', sans-serif;
