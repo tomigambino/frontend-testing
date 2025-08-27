@@ -3,14 +3,14 @@
     <section class="product-grid">
       @for (item of productosPaginados; track item.id) {
         <div class="product-item">
-          
-          <div class="product-card">
+      
+          <div class="product-card"  (click)="togglePanel(item)">
             <img [src]="item.imagen" alt="{{ item.nombre }}">
             <h3>{{ item.nombre }}</h3>
             <p>{{ '$' + item.precio }}</p>
           </div>
 
-          <div class="buy-panel">
+          <div class="buy-panel" *ngIf="item.mostrarPanel">
             <div class="qty-control">
               <button class="qty-btn" (click)="decrement(item)">−</button>
               <input type="number" [(ngModel)]="item.cantidad" min="1" class="qty-input">
