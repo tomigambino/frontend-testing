@@ -38,13 +38,44 @@
 }
 
 .icon{
-    height: 2rem;
-    padding: 0.4rem;
-    color: var(--color-icons-navbar);
+  height: 2rem;
+  padding: 0.4rem;
+  color: var(--color-icons-navbar);
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.icon-btn img.icon {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.2s ease;
+}
+
+.icon-btn:hover img.icon {
+  transform: scale(1.1);
 }
 
 .navbar-left {
   display: flex;    
   align-items: center;
   gap: 20px; /* Espacio entre logo y links */
+}
+
+.icons-right {
+  display: flex;
+  align-items: center; /* centra verticalmente en el navbar */
+  gap: 0.75rem; /* espacio entre iconos */
+}
+
+.icons-right img {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
 }

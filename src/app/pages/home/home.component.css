@@ -80,6 +80,7 @@ app-sidebar {
   justify-content: center;
   gap: 0.75rem;
 }
+
 .qty-btn {
   width: 36px;
   height: 36px;
@@ -101,6 +102,13 @@ app-sidebar {
   border: 1px solid #c8e6c9;
   border-radius: 8px;
   font-weight: 600;
+}
+
+/* Saco las flechas en el input de la cantidad */
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* Confirmar */

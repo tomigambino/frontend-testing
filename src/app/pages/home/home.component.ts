@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
 
   currentPage = 1;
   itemsPerPage = 8;
+  private closeTimeout: any;
 
   get productosPaginados(): Producto[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -74,6 +75,24 @@ export class HomeComponent implements OnInit {
     console.log(`Agregaste ${item.cantidad} unidad(es) de ${item.nombre}`);
     item.mostrandoMensaje = true;
     setTimeout(() => item.mostrandoMensaje = false, 2000);
+
+    // Está abierto y lo cerramos luego de confirmar con un retardo
+    if (item.mostrarPanel) {
+      this.closeTimeout = setTimeout(() => {
+        item.mostrarPanel = false;
+      }, 1000); // 2 segundos de delay para cerrar
+    } else {
+      // Abrir inmediatamente
+      clearTimeout(this.closeTimeout);
+      item.mostrarPanel = true;
+    }
+
     // Aquí tu lógica real de añadir al carrito
   }
+
+  // Alterna el panel del producto clickeado
+  togglePanel(item: any) {
+  item.mostrarPanel = !item.mostrarPanel;
+  }
+
 }
