@@ -17,12 +17,45 @@ app-sidebar {
 /* Grid de productos */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1rem;
 }
 
+/* Tarjeta de producto */
 .product-card {
   background: linear-gradient(135deg, #4caf50, #81c784);
-  height: 150px;
   border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: white;
+}
+
+.product-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.product-card h3, 
+.product-card p {
+  margin: 0.5rem;
+  font-weight: 500;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.2);}
+
+
+.product-card h3 {
+  cursor: default;
+  transition: color 0.2s ease;
+}
+
+.product-card h3:hover {
+  color: #e0ffe0; /* un verde claro que combine */
 }

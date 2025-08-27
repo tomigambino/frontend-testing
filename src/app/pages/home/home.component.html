@@ -1,18 +1,16 @@
 <div class="home-container">
 
-  <!-- Agregar barra lateral -->
-
-
   <!-- Columna derecha: contenido -->
   <section class="home-content">
     <!-- Grid de productos -->
     <section class="product-grid">
-      <div class="product-card" >
-        <!-- Aquí va el contenido de cada producto -->
-        <!-- <img [src]="item.imageUrl" alt="{{ item.name }}" /> -->
-        <h3>Nombre</h3>
-        <p>Precio</p>
-      </div>
+      @for (item of productosPaginados; track item.id) {
+        <div class="product-card">
+          <img [src]="item.imagen" alt="{{ item.nombre }}" style="width:100%; height:auto; border-radius:8px 8px 0 0;">
+          <h3>{{ item.nombre }}</h3>
+          <p>{{ item.precio | currency:'ARS' }}</p>
+        </div>
+      }
     </section>
   </section>
 </div>
