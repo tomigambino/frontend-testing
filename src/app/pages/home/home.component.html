@@ -1,14 +1,29 @@
 <div class="home-container">
-
-  <!-- Columna derecha: contenido -->
   <section class="home-content">
-    <!-- Grid de productos -->
     <section class="product-grid">
       @for (item of productosPaginados; track item.id) {
-        <div class="product-card">
-          <img [src]="item.imagen" alt="{{ item.nombre }}" style="width:100%; height:auto; border-radius:8px 8px 0 0;">
-          <h3>{{ item.nombre }}</h3>
-          <p>{{ item.precio | currency:'ARS' }}</p>
+        <div class="product-item">
+          
+          <div class="product-card">
+            <img [src]="item.imagen" alt="{{ item.nombre }}">
+            <h3>{{ item.nombre }}</h3>
+            <p>{{ '$' + item.precio }}</p>
+          </div>
+
+          <div class="buy-panel">
+            <div class="qty-control">
+              <button class="qty-btn" (click)="decrement(item)">−</button>
+              <input type="number" [(ngModel)]="item.cantidad" min="1" class="qty-input">
+              <button class="qty-btn" (click)="increment(item)">+</button>
+            </div>
+
+            <button class="confirm-btn" (click)="confirmarCarrito(item)">Confirmar</button>
+
+            <div class="added-msg" *ngIf="item.mostrandoMensaje">
+              ✅ Añadido al carrito
+            </div>
+          </div>
+
         </div>
       }
     </section>

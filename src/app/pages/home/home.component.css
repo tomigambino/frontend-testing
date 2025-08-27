@@ -1,6 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+  --fuente-principal: 'Roboto', sans-serif;
+}
+
 .home-container {
   display: flex;
-  min-height: calc(100vh - 60px - 50px); /* alto total menos navbar y footer */
+  min-height: calc(100vh - 60px - 50px);
 }
 
 app-sidebar {
@@ -14,14 +20,21 @@ app-sidebar {
   background: #f8f8f8;
 }
 
-/* Grid de productos */
+/* Grid responsive */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1rem;
 }
 
-/* Tarjeta de producto */
+/* Cada ítem envuelve tarjeta y panel */
+.product-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Tarjeta del producto */
 .product-card {
   background: linear-gradient(135deg, #4caf50, #81c784);
   border-radius: 8px;
@@ -29,33 +42,97 @@ app-sidebar {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
   color: white;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .product-card img {
   width: 100%;
-  height: 120px;
+  height: 150px;
   object-fit: cover;
 }
-
-.product-card h3, 
-.product-card p {
+.product-card h3, .product-card p {
   margin: 0.5rem;
-  font-weight: 500;
 }
-
 .product-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 6px 10px rgba(0,0,0,0.2);}
+  box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+}
+.product-card h3:hover { color: #e0ffe0; }
 
-
-.product-card h3 {
-  cursor: default;
-  transition: color 0.2s ease;
+/* Panel directo */
+.buy-panel {
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  animation: fadeIn 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
 
-.product-card h3:hover {
-  color: #e0ffe0; /* un verde claro que combine */
+/* Controles cantidad */
+.qty-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
 }
+.qty-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #c8e6c9;
+  background: #f6fff6;
+  color: #2e7d32;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+.qty-btn:hover { background: #e8f5e9; }
+.qty-btn:active { transform: translateY(1px); }
+
+.qty-input {
+  width: 64px;
+  height: 36px;
+  text-align: center;
+  border: 1px solid #c8e6c9;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Confirmar */
+.confirm-btn {
+  align-self: stretch;
+  background: #2e7d32;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+.confirm-btn:hover { background: #256b2a; }
+.confirm-btn:active { transform: translateY(1px); }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.added-msg {
+  text-align: center;
+  color: #2e7d32;
+  font-weight: bold;
+  font-size: 0.9rem;
+  opacity: 0;
+  animation: fadeSlideIn 0.3s forwards;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
