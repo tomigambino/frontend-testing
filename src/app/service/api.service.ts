@@ -13,8 +13,13 @@ export class ApiService{
     
 
     async generatePay(saleId: number){
-      const response = await axiosService.get(`/pay/${saleId}`)
-      return response.data.init_point 
+      try{
+        const response = await axiosService.get(`/pay/${saleId}`)
+        return response.data;
+      }catch(error){
+        console.error('Error generating payment:', error);
+        throw error;
+      }
     }
 
 }
