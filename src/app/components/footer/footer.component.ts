@@ -15,8 +15,6 @@ export class Footer {
     try {
     const initPoint = await this.apiService.generatePay(1);
 
-    console.log('InitPoint recibido:', initPoint);
-
     if (!initPoint) {
       console.error('❌ initPoint está vacío o undefined');
       return;

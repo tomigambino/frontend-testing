@@ -2,7 +2,7 @@
   <div class="navbar-left">
     <img src="assets/icons/Goal_icon-icons.com_62267.svg" alt="Logo" class="logo-img">
     <div class="navbar-links">
-      <a class="nav-link" routerLink="/inicio">Inicio</a>
+      <a class="nav-link" routerLink="/home">Inicio</a>
       <a class="nav-link" routerLink="/mis-compras">Mis Compras</a>
     </div>
   </div>
@@ -12,8 +12,35 @@
       <img class="icon sign-out" src="assets/icons/sign-out.svg" alt="Cerrar sesión" />
     </button>
     
-    <button class="icon-btn" routerLink="/carrito">
+    <!-- Botón del carrito -->
+    <button class="icon-btn" (click)="toggleCart()">
       <img class="icon cart" src="assets/icons/shop-cart.svg" alt="Carrito" />
+      <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
     </button>
   </div>
 </nav>
+
+<!-- Panel lateral del carrito -->
+<div class="cart-panel" [class.open]="showCartPanel">
+  <div class="cart-header">
+    <h2 class="cart-title">Carrito</h2>
+    <button class="close-cart" (click)="toggleCart()">✕</button>
+  </div>
+
+ <div class="cart-body" *ngIf="cartCount > 0; else emptyCart">
+  <div class="cart-item" *ngFor="let item of cartService.items; let i = index">
+    <span>{{ item.name }}</span>
+    <span>{{ item.price | currency:'ARS' }}</span>
+    <button (click)="cartService.removeProduct(i)">Eliminar</button>
+  </div>
+  <div class="cart-total">
+    Total: {{ cartService.getTotal() | currency:'ARS' }}
+  </div>
+  <button class="checkout-btn">Finalizar compra</button>
+</div>
+
+<ng-template #emptyCart>
+  <div class="empty-cart">
+    Sin artículos
+  </div>
+</ng-template>
