@@ -1,0 +1,67 @@
+.product-detail-container {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.product-image img {
+  width: 400px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--boton);
+}
+
+.description {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.qty-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--boton);
+  background: var(--blanco);
+  color: var(--boton);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.qty-input {
+  width: 64px;
+  height: 36px;
+  text-align: center;
+  border: 1px solid var(--boton);
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.confirm-btn {
+  background: var(--boton);
+  color: var(--blanco);
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}

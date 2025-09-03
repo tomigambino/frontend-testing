@@ -3,27 +3,12 @@
     <section class="product-grid">
       @for (item of productosPaginados; track item.id) {
         <div class="product-item">
-      
-          <div class="product-card"  (click)="togglePanel(item)">
+
+          <div class="product-card" [routerLink]="['/product', item.id]">
             <img [src]="item.imagen" alt="{{ item.nombre }}">
             <h3>{{ item.nombre }}</h3>
             <p>{{ '$' + item.precio }}</p>
           </div>
-
-          <div class="buy-panel" *ngIf="item.mostrarPanel">
-            <div class="qty-control">
-              <button class="qty-btn" (click)="decrement(item)">−</button>
-              <input type="number" [(ngModel)]="item.cantidad" min="1" class="qty-input">
-              <button class="qty-btn" (click)="increment(item)">+</button>
-            </div>
-
-            <button class="confirm-btn" (click)="confirmarCarrito(item)">Confirmar</button>
-
-            <div class="added-msg" *ngIf="item.mostrandoMensaje">
-              ✅ Añadido al carrito
-            </div>
-          </div>
-
         </div>
       }
     </section>

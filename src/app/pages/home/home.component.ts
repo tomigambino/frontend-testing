@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 interface Producto {
   id: number;
@@ -15,16 +16,16 @@ interface Producto {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'] // ojo: era styleUrl en singular, corregido a styleUrls
 })
 export class HomeComponent implements OnInit {
 
   products: Producto[] = [
-    { id: 1, nombre: 'Botin', precio: 1500, imagen: 'assets/img/messi.jpg', mostrarPanel: false },
-    { id: 2, nombre: 'Pelota', precio: 2000, imagen: 'assets/img/pelota.jpg', mostrarPanel: false },
-    { id: 3, nombre: 'Remera', precio: 2500, imagen: 'assets/img/zanetti.webp', mostrarPanel: false },
+    { id: 1, nombre: 'Botines de Messi x Adidas 2024', precio: 1500, imagen: 'assets/img/messi.jpg', mostrarPanel: false },
+    { id: 2, nombre: 'Pelota UEFA Champions League 2024', precio: 2000, imagen: 'assets/img/pelota.jpg', mostrarPanel: false },
+    { id: 3, nombre: 'Remera Zanetti #23 Inter de Milan 2010', precio: 2500, imagen: 'assets/img/zanetti.webp', mostrarPanel: false },
   ];
 
   currentPage = 1;

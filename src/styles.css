@@ -1,8 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-    --background-navbar: linear-gradient(to right, #89d957, #c9e265);
-    --color-icons-navbar: red;
-    --blanco: #ffffff;
+    --background-color: #ffffff;
+    --background-navbar:  #bebebe5d;
+    --blanco: #ffff;
+    --color-fount: rgb(32, 32, 32);
+    --shadow: rgba(0,0,0,0.04);
+    --boton: #585858;
     --fuente-principal: 'Montserrat', sans-serif;
     --fuente-titulos: 'Oswald', sans-serif;
     --fuente-contenido-tabla: 'Roboto', sans-serif;
