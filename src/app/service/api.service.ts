@@ -10,11 +10,9 @@ export class ApiService{
 
     constructor( ){}
 
-    
-
     async generatePay(saleId: number){
       try{
-        const response = await axiosService.get(`/pay/${saleId}`)
+        const response = await axiosService.get(`/pago/${saleId}`)
         return response.data;
       }catch(error){
         console.error('Error generating payment:', error);
