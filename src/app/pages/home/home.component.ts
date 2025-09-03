@@ -87,8 +87,6 @@ export class HomeComponent implements OnInit {
       clearTimeout(this.closeTimeout);
       item.mostrarPanel = true;
     }
-
-    // Aquí tu lógica real de añadir al carrito
   }
 
   // Alterna el panel del producto clickeado

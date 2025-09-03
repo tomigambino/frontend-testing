@@ -4,7 +4,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1rem 1rem 1rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    box-shadow: 0 4px 10px var(--shadow);
     width: 100%;
     margin: 0;
     box-sizing: border-box;
@@ -15,7 +15,7 @@
 
 .nav-link {
   text-decoration: none;
-  color: black;
+  color: var(--negro);
   padding: 10px;
   border-radius: 5px;
   transition: background 0.3s ease;
@@ -27,18 +27,18 @@
 }
 
 .nav-link:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--blanco);
 }
 
 .logo-img {
-  height: 40px; /* Ajustá según tu gusto */
+  height: 40px;
   width: auto;
-  margin-right: 1px; /* Espacio entre logo y opciones */
+  margin-right: 1px;
 }
 
 .nav-options {
   display: flex;
-  gap: 15px; /* Espacio entre botones */
+  gap: 15px;
 }
 
 .icon{
@@ -69,13 +69,13 @@
 .navbar-left {
   display: flex;    
   align-items: center;
-  gap: 20px; /* Espacio entre logo y links */
+  gap: 20px;
 }
 
 .icons-right {
   display: flex;
-  align-items: center; /* centra verticalmente en el navbar */
-  gap: 0.75rem; /* espacio entre iconos */
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .icons-right img {
@@ -90,8 +90,8 @@
   right: -400px;
   width: 400px;
   height: 100%;
-  background: #fff;
-  box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+  background: var(--blanco);
+  box-shadow: -2px 0 8px var(--shadow);
   transition: right 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -107,7 +107,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--shadow);
 }
 
 .cart-body {
@@ -117,8 +117,8 @@
 }
 
 .cart-count {
-  background: red;
-  color: white;
+  background: var(--rojo);
+  color: var(--blanco);
   border-radius: 50%;
   padding: 2px 6px;
   font-size: 0.8rem;
@@ -138,19 +138,19 @@
   height: 100%;
   font-size: 1rem;
   font-weight: 500;
-  color: #3b3b3b;
+  color: var(--negro);
   font-style: italic;
   opacity: 0.8;
 }
 
 .cart-title {
   font-family: var(--fuente-navbar);
-  font-size: 1.4rem; /* un poco más grande */
-  font-weight: 600; /* semi-bold para presencia */
-  letter-spacing: 0.5px; /* aire entre letras */
-  color: #333; /* gris oscuro elegante */
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--negro);
   margin-bottom: 0.5rem;
-  text-transform: uppercase; /* opcional, para más fuerza visual */
+  text-transform: uppercase;
   position: relative;
 }
 
@@ -161,22 +161,22 @@
   bottom: -4px;
   width: 93px;
   height: 2px;
-  background-color: #000000; /* un acento de color */
+  background-color: var(--negro);
   border-radius: 2px;
 }
 
 .close-cart {
-  background: none;       /* sin fondo */
-  border: none;           /* sin borde */
-  padding: 0;             /* sin relleno extra */
-  font-size: 1.5rem;       /* tamaño de la cruz */
-  line-height: 1;          /* ajusta verticalmente */
-  cursor: pointer;         /* mano al pasar */
-  color: #333;             /* color de la cruz */
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 1.5rem;
+  line-height: 1;  
+  cursor: pointer; 
+  color: var(--negro);
 }
 
 .close-cart:hover {
-  color: #ff6f61;          /* color de acento al pasar */
-  transform: scale(1.1);   /* leve zoom */
+  color: var(--rojo);
+  transform: scale(1.1);
   transition: all 0.2s ease;
 }
