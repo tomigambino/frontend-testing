@@ -32,6 +32,9 @@ export class ProductDetailComponent implements OnInit {
     if (idParam) {
     const id = Number(idParam); // conversión a number
     this.product = await this.apiService.getProductById(id);
+    if(this.product.images && this.product.images.length > 0){
+      this.mainImage = this.product.images[0].url; // Asigna la primera imagen como imagen principal
+    }
   } else {
     // Manejar el caso en que no haya id en la URL
     console.error('No se encontró el ID en la ruta');

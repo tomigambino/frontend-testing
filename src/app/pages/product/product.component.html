@@ -1,20 +1,18 @@
 <div class="product-page">
   <!-- Columna izquierda: galería -->
+   @if(product){
   <div class="gallery">
     <div class="thumbnails">
       <img
         *ngFor="let img of product.images"
-        [src]="img"
+        [src]="img.url"
         [alt]="product.name"
-        (click)="mainImage = img"
-        [class.active]="mainImage === img"
+        (click)="mainImage = img.url"
+        [class.active]="mainImage === img.url"
       />
     </div>
-
-    <div class="main-image">
-      @for (img of product.images; track img.id) {
-        <img [src]="img.url" [alt]="product.name">
-      }
+    <div class="main-image" *ngIf="mainImage">
+      <img [src]="mainImage" [alt]="product.name">
     </div>
   </div>
 
@@ -29,10 +27,10 @@
       <span>{{ currentQuantity }}</span>
       <button (click)="increment()">+</button>
     </div>
-
+    
     <button class="add-to-cart" (click)="addToCart(product)">
       Agregar al carrito
     </button>
   </div>
+}
 </div>
-
