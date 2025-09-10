@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProductInterface } from '../../interfaces/product-interface';
 import { SaleDetailInterface } from '../../interfaces/saleDetail-interface';
+import { ApiService } from '../../service/api.service';
 
 @Component({
   selector: 'app-navbar',
@@ -18,9 +19,10 @@ export class Navbar {
   cartCount = 0;
   total = 0;
   showCartPanel = false;
-  currentQuantity: number = 1
 
-  constructor(public cartService: CartService) {
+  constructor(public cartService: CartService,
+    public apiService: ApiService
+  ) {
   }
 
   ngOnInit(){
@@ -35,17 +37,23 @@ export class Navbar {
     this.showCartPanel = !this.showCartPanel;
   }
 
-  increment(): void {
-    this.currentQuantity++;
-  }
-
-  decrement(): void {
-    if (this.currentQuantity > 1) {
-      this.currentQuantity--;
-    }
-  }
-
   removeProduct(index: number) {
     this.cartService.removeProduct(index);
+  }
+
+  async payWithMercadoPago(){
+    try {
+    const initPoint = await this.apiService.generatePay(1);
+
+    if (!initPoint) {
+      console.error('InitPoint está vacío o undefined');
+      return;
+    }
+
+    // Forzar salida directa del Router y abrir MP
+    window.location.href = initPoint;
+  } catch (error) {
+    console.error('Error en payWithMercadoPago:', error);
+  }
   }
 }
