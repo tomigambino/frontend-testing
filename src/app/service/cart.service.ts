@@ -29,15 +29,18 @@ export class CartService {
     const cart = this.getCart();
     cart.push(saleDetail);
     localStorage.setItem(this.cartKey, JSON.stringify(cart));
+    this.cart$.next(cart);
   }
 
   removeProduct(index: number) {
     const cart = this.getCart();
     cart.splice(index, 1);
     localStorage.setItem(this.cartKey, JSON.stringify(cart));
+    this.cart$.next(cart);
   }
 
   clearCart() {
     localStorage.removeItem(this.cartKey);
+    this.cart$.next([]);
   }
 }

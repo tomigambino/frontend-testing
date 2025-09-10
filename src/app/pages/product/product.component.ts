@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { ProductService } from '../../service/product.service';
 import { ApiService } from '../../service/api.service';
 import { ProductInterface } from '../../interfaces/product-interface';
-import { SaleDetailInterface } from '../../interfaces/saleDetail-interface';
 import { CartService } from '../../service/cart.service';
 
 
