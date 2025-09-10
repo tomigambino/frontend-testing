@@ -1,13 +1,12 @@
 <div class="home-container">
   <section class="home-content">
     <section class="product-grid">
-      @for (item of productosPaginados; track item.id) {
+      @for (item of products; track item.id) {
         <div class="product-item">
-
           <div class="product-card" [routerLink]="['/product', item.id]">
-            <img [src]="item.imagen" alt="{{ item.nombre }}">
-            <h3>{{ item.nombre }}</h3>
-            <p>{{ '$' + item.precio }}</p>
+            <img [src]="item.images?.[0]?.url" alt="{{ item.name }}">
+            <h3>{{ item.name }}</h3>
+            <p>{{ '$' + item.price }}</p>
           </div>
         </div>
       }

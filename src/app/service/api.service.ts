@@ -1,5 +1,8 @@
 import { Injectable } from "@angular/core";
 import { axiosService } from "./axiosClient";
+import { SaleDetailInterface } from "../interfaces/saleDetail-interface";
+import { SaleInterface } from "../interfaces/sale-interface";
+import { ProductInterface } from "../interfaces/product-interface";
 
 
 @Injectable({
@@ -49,6 +52,16 @@ export class ApiService{
       }
     }
 
+    async getProductById(productId: number){
+      try{
+        const response = await axiosService.get(`/producto/${productId}`)
+        return response.data;
+      } catch(error){
+        console.error('Error find products:', error);
+        throw error;
+      }
+    }
+
     async getAllProductByProductType(productTypeId: number){
       try{
         const response = await axiosService.get(`/producto/tipo/${productTypeId}`)
@@ -59,4 +72,23 @@ export class ApiService{
       }
     }
 
+    async postSaleDetail(saleDetail: SaleDetailInterface){
+      try{
+        const response = await axiosService.post(`/detalle-venta`, saleDetail)
+        return response.data;
+      } catch (error){
+        console.error('Error posting sale detail:', error);
+        throw error;
+      }
+    }
+
+    async postSale(sale: SaleInterface){
+      try{
+        const response = await axiosService.post(`/venta`, sale)
+        return response.data;
+      } catch (error){
+        console.error('Error posting sale:', error);
+        throw error;
+      }
+    }
 }

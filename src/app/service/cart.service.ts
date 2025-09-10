@@ -1,25 +1,43 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { SaleDetailInterface } from '../interfaces/saleDetail-interface';
+import { ProductInterface } from '../interfaces/product-interface';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-  private itemsSubject = new BehaviorSubject<any[]>([]);
-  items$ = this.itemsSubject.asObservable();
+  private cartKey = 'cart';
+  private cart$ = new BehaviorSubject<SaleDetailInterface[]>(this.loadCart());
 
-  get items() {
-    return this.itemsSubject.value;
+  getCart(): SaleDetailInterface[] {
+    return JSON.parse(localStorage.getItem(this.cartKey) || '[]');
   }
 
-  addProduct(product: any) {
-    this.itemsSubject.next([...this.items, product]);
+  private loadCart(): SaleDetailInterface[] {
+    return JSON.parse(localStorage.getItem(this.cartKey) || '[]');
+  }
+
+  getCartObservable(): Observable<SaleDetailInterface[]> {
+    return this.cart$.asObservable();
+  }
+
+  addToCart(product: ProductInterface, quantity: number) {
+    const saleDetail: SaleDetailInterface = {
+        product: product,
+        quantity: quantity,
+        totalDetail: product.price * quantity
+      }
+    const cart = this.getCart();
+    cart.push(saleDetail);
+    localStorage.setItem(this.cartKey, JSON.stringify(cart));
   }
 
   removeProduct(index: number) {
-    const updated = this.items.filter((_, i) => i !== index);
-    this.itemsSubject.next(updated);
+    const cart = this.getCart();
+    cart.splice(index, 1);
+    localStorage.setItem(this.cartKey, JSON.stringify(cart));
   }
 
-  getTotal() {
-    return this.items.reduce((acc, item) => acc + (item.price || 0), 0);
+  clearCart() {
+    localStorage.removeItem(this.cartKey);
   }
 }

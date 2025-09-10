@@ -8,4 +8,5 @@ export interface ProductInterface{
     price: number;
     stock: number;
     isActive: boolean;
+    images?: any[];
 }

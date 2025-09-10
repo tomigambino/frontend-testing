@@ -2,16 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
-interface Producto {
-  id: number;
-  nombre: string;
-  precio: number;
-  imagen: string;
-  mostrarPanel?: boolean;
-  cantidad?: number;
-  mostrandoMensaje?: boolean;
-}
+import { ProductInterface } from '../../interfaces/product-interface';
+import { ApiService } from '../../service/api.service';
 
 @Component({
   selector: 'app-home',
@@ -22,27 +14,23 @@ interface Producto {
 })
 export class HomeComponent implements OnInit {
 
-  products: Producto[] = [
-    { id: 1, nombre: 'Botines de Messi x Adidas 2024', precio: 1500, imagen: 'assets/img/messi.jpg', mostrarPanel: false },
-    { id: 2, nombre: 'Pelota UEFA Champions League 2024', precio: 2000, imagen: 'assets/img/pelota.jpg', mostrarPanel: false },
-    { id: 3, nombre: 'Remera Zanetti #23 Inter de Milan 2010', precio: 2500, imagen: 'assets/img/zanetti.webp', mostrarPanel: false },
-  ];
-
+  products: ProductInterface[] = []
   currentPage = 1;
   itemsPerPage = 8;
-  private closeTimeout: any;
+  currentQuantity = 1; // Cantidad del producto por defecto
 
-  get productosPaginados(): Producto[] {
+  constructor(
+    private apiService: ApiService
+  ){}
+
+  get productosPaginados(): ProductInterface[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     return this.products.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     // Inicializa las props extra sobre la lista original
-    this.products.forEach(p => {
-      p.cantidad = 1;
-      p.mostrandoMensaje = false;
-    });
+    this.products = await this.apiService.getAllProducts()
   }
 
   getTotalPaginas(): number[] {
@@ -63,16 +51,17 @@ export class HomeComponent implements OnInit {
     if (this.currentPage < this.getTotalPaginas().length) this.currentPage++;
   }
 
-  increment(item: Producto): void {
-    item.cantidad = (item.cantidad || 1) + 1;
+  increment(): void {
+    this.currentQuantity += 1;
   }
 
-  decrement(item: Producto): void {
-    const next = (item.cantidad || 1) - 1;
-    item.cantidad = next < 1 ? 1 : next;
+  decrement(): void {
+    if(this.currentQuantity>1){
+      this.currentQuantity -= 1;
+    }
   }
 
-  confirmarCarrito(item: Producto): void {
+  /*confirmarCarrito(item: ProductInterface): void {
     console.log(`Agregaste ${item.cantidad} unidad(es) de ${item.nombre}`);
     item.mostrandoMensaje = true;
     setTimeout(() => item.mostrandoMensaje = false, 2000);
@@ -93,5 +82,5 @@ export class HomeComponent implements OnInit {
   togglePanel(item: any) {
   item.mostrarPanel = !item.mostrarPanel;
   }
-
+  */
 }

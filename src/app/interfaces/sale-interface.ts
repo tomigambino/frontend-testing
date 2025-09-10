@@ -7,9 +7,6 @@ export interface SaleInterface{
     saleDate: Date;
     customer: CustomerInterface;
     saleDetail: SaleDetailInterface[];
-    deposit: number;
     total: number;
-    appliedDiscount: number;
     saleStatus: SaleStatusInterface;
-    estimatedDeliveryDate: Date;
 }

@@ -28,13 +28,13 @@
   </div>
 
  <div class="cart-body" *ngIf="cartCount > 0; else emptyCart">
-  <div class="cart-item" *ngFor="let item of cartService.items; let i = index">
-    <span>{{ item.name }}</span>
-    <span>{{ item.price | currency:'ARS' }}</span>
-    <button (click)="cartService.removeProduct(i)">Eliminar</button>
+  <div class="cart-item" *ngFor="let item of cartItems; let i = index">
+    <span>{{ item.product.name }}</span>
+    <span>{{ item.product.price | currency:'ARS' }}</span>
+    <button (click)="removeProduct(i)">Eliminar</button>
   </div>
   <div class="cart-total">
-    Total: {{ cartService.getTotal() | currency:'ARS' }}
+    Total: {{ total | currency:'ARS' }}
   </div>
   <button class="checkout-btn">Finalizar compra</button>
 </div>

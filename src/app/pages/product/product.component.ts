@@ -3,16 +3,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ProductService } from '../../service/product.service';
+import { ApiService } from '../../service/api.service';
+import { ProductInterface } from '../../interfaces/product-interface';
+import { SaleDetailInterface } from '../../interfaces/saleDetail-interface';
+import { CartService } from '../../service/cart.service';
 
-interface Product {
-  id: number;
-  nombre: string;
-  precio: number;
-  descripcion?: string;
-  imagen: string;        // imagen principal
-  imagenes?: string[];   // galería opcional
-  cantidad: number;      // cantidad seleccionada
-}
 
 @Component({
   selector: 'app-product',
@@ -22,45 +17,39 @@ interface Product {
   styleUrls: ['./product.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  product!: Product;
+  product!: ProductInterface;
   mainImage: string = ''; // imagen principal que se muestra
+  currentQuantity: number = 1 //Cantidad por defecto
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private apiService: ApiService,
+    private cartService: CartService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     const idParam = this.route.snapshot.paramMap.get('id');
-    const id = idParam ? Number(idParam) : null;
-
-    if (id !== null && !isNaN(id)) {
-      const prod = this.productService.getProductoPorId(id);
-
-      if (prod) {
-        // Creamos un array de imágenes aunque solo haya una
-        const imagenes = [prod.imagen];
-        this.product = { ...prod, imagenes, cantidad: 1 };
-        this.mainImage = prod.imagen;
-      } else {
-        console.warn('Producto no encontrado');
-      }
-    } else {
-      console.error('ID de producto inválido');
-    }
+    if (idParam) {
+    const id = Number(idParam); // conversión a number
+    this.product = await this.apiService.getProductById(id);
+  } else {
+    // Manejar el caso en que no haya id en la URL
+    console.error('No se encontró el ID en la ruta');
+  }
   }
 
   increment(): void {
-    this.product.cantidad++;
+    this.currentQuantity++;
   }
 
   decrement(): void {
-    if (this.product.cantidad > 1) {
-      this.product.cantidad--;
+    if (this.currentQuantity > 1) {
+      this.currentQuantity--;
     }
   }
 
-  confirmarCarrito(prod: Product): void {
-    console.log(`Agregaste ${prod.cantidad} unidad(es) de ${prod.nombre}`);
+  async addToCart(prod: ProductInterface){
+    await this.cartService.addToCart(prod, this.currentQuantity)
+    this.currentQuantity = 1;
   }
 }

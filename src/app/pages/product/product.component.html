@@ -3,32 +3,34 @@
   <div class="gallery">
     <div class="thumbnails">
       <img
-        *ngFor="let img of product.imagenes"
+        *ngFor="let img of product.images"
         [src]="img"
-        [alt]="product.nombre"
+        [alt]="product.name"
         (click)="mainImage = img"
         [class.active]="mainImage === img"
       />
     </div>
 
     <div class="main-image">
-      <img [src]="mainImage" [alt]="product.nombre" />
+      @for (img of product.images; track img.id) {
+        <img [src]="img.url" [alt]="product.name">
+      }
     </div>
   </div>
 
   <!-- Columna derecha: info -->
   <div class="product-info">
-    <h1>{{ product.nombre }}</h1>
-    <p class="price">${{ product.precio | number: '1.2-2' }}</p>
-    <p class="description">{{ product.descripcion }}</p>
+    <h1>{{ product.name }}</h1>
+    <p class="price">${{ product.price | number: '1.2-2' }}</p>
+    <p class="description">{{ product.description }}</p>
 
     <div class="quantity">
       <button (click)="decrement()">−</button>
-      <span>{{ product.cantidad }}</span>
+      <span>{{ currentQuantity }}</span>
       <button (click)="increment()">+</button>
     </div>
 
-    <button class="add-to-cart" (click)="confirmarCarrito(product)">
+    <button class="add-to-cart" (click)="addToCart(product)">
       Agregar al carrito
     </button>
   </div>
