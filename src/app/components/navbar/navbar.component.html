@@ -29,15 +29,21 @@
 
  <div class="cart-body" *ngIf="cartCount > 0; else emptyCart">
   <div class="cart-item" *ngFor="let item of cartItems; let i = index">
-    <span>{{ item.product.name }}</span>
-    <span>{{ item.product.price | currency:'ARS' }}</span>
-    <button (click)="removeProduct(i)">Eliminar</button>
+
+    <td><span>{{ item.product.name }}</span> </td>
+    
+    <td><span>{{ item.product.price | currency:'ARS' }}</span></td>
+    
+    <td><button class="remove-buttom" (click)="removeProduct(i)">Eliminar</button></td>
+    
   </div>
   <div class="cart-total">
     Total: {{ total | currency:'ARS' }}
   </div>
   <button class="checkout-btn">Finalizar compra</button>
 </div>
+
+
 
 <ng-template #emptyCart>
   <div class="empty-cart">

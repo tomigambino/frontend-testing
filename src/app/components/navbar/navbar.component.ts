@@ -18,6 +18,7 @@ export class Navbar {
   cartCount = 0;
   total = 0;
   showCartPanel = false;
+  currentQuantity: number = 1
 
   constructor(public cartService: CartService) {
   }
@@ -32,6 +33,16 @@ export class Navbar {
 
   toggleCart() {
     this.showCartPanel = !this.showCartPanel;
+  }
+
+  increment(): void {
+    this.currentQuantity++;
+  }
+
+  decrement(): void {
+    if (this.currentQuantity > 1) {
+      this.currentQuantity--;
+    }
   }
 
   removeProduct(index: number) {
