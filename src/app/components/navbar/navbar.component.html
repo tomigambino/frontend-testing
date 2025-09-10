@@ -29,17 +29,19 @@
 
  <div class="cart-body" *ngIf="cartCount > 0; else emptyCart">
   <div class="cart-item" *ngFor="let item of cartItems; let i = index">
+    <div class="cart-item-info">
+      <td><span>{{ item.product.name }}</span> </td>
+    
+      <td><span>{{ item.product.price | currency:'ARS' }}</span></td>
+    
+      <td>Total: {{ total | currency:'ARS' }}</td>
+    </div>
+    
+    
+    <img class="icon cart" (click)="removeProduct(i)" src="assets/icons/trash-solid-full.svg"  alt="Carrito" />
 
-    <td><span>{{ item.product.name }}</span> </td>
-    
-    <td><span>{{ item.product.price | currency:'ARS' }}</span></td>
-    
-    <td><button class="remove-buttom" (click)="removeProduct(i)">Eliminar</button></td>
-    
   </div>
-  <div class="cart-total">
-    Total: {{ total | currency:'ARS' }}
-  </div>
+
   <button class="checkout-btn">Finalizar compra</button>
 </div>
 

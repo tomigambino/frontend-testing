@@ -168,6 +168,11 @@
 }
 
 .cart-item{
+  display:flex;
+  justify-content: space-between;
+}
+
+.cart-item-info{
   display: flex;
   flex-direction: column;
 }
