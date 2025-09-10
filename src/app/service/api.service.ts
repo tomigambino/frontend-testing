@@ -2,8 +2,6 @@ import { Injectable } from "@angular/core";
 import { axiosService } from "./axiosClient";
 import { SaleDetailInterface } from "../interfaces/saleDetail-interface";
 import { SaleInterface } from "../interfaces/sale-interface";
-import { ProductInterface } from "../interfaces/product-interface";
-
 
 @Injectable({
   providedIn: 'root' // Indica que el servicio se proveerá en la raíz de la aplicación.

@@ -40,7 +40,7 @@
   <div class="cart-total">
     Total: {{ total | currency:'ARS' }}
   </div>
-  <button class="checkout-btn">Finalizar compra</button>
+  <button class="checkout-btn" (click)="payWithMercadoPago()">Finalizar compra</button>
 </div>
 
 

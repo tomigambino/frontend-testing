@@ -65,3 +65,8 @@ button:focus {
   outline: none;
   animation: pulse 2s infinite;
 }
+
+.footer{
+  background-color: var(--background-navbar);
+  padding-bottom: 6rem;
+}
