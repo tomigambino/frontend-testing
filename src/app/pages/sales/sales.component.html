@@ -1,121 +1,65 @@
-<!-- ventas.component.html -->
 <div class="ventas">
-  <!-- Header + métricas -->
   <div class="ventas__top">
     <div class="ventas__title">
       <h2>Mis ventas</h2>
-      <p class="ventas__subtitle">Resumen de productos vendidos</p>
+      <p class="ventas__subtitle">Listado de ventas individuales</p>
     </div>
-
     <div class="ventas__metrics">
       <div class="metric">
-        <span class="metric__label">Ingresos</span>
-        <span class="metric__value">{{ totalRevenue | currency:'ARS':'symbol-narrow':'1.0-0' }}</span>
-      </div>
-      <div class="metric">
-        <span class="metric__label">Unidades</span>
-        <span class="metric__value">{{ totalUnits }}</span>
-      </div>
-      <div class="metric">
-        <span class="metric__label">Productos</span>
-        <span class="metric__value">{{ totalProducts }}</span>
+        <span class="metric__label">Ingresos totales</span>
+        <span class="metric__value">
+          {{ totalRevenue | currency:'ARS':'symbol-narrow':'1.0-0' }}
+        </span>
       </div>
     </div>
   </div>
 
-  <!-- Controles -->
+  <!-- Barra de búsqueda (sin funcionalidad) -->
   <div class="ventas__controls">
     <div class="control control--search">
-      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16a6.471 6.471 0 004.23-1.57l.27.28v.79L20 21.5 21.5 20 15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 
+                 6.5 6.5 0 109.5 16a6.471 6.471 0 004.23-1.57l.27.28v.79L20 
+                 21.5 21.5 20 15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 
+                 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+        </path>
+      </svg>
       <input
         type="text"
-        [(ngModel)]="search"
-        placeholder="Buscar producto..."
-        aria-label="Buscar producto"
+        placeholder="Buscar producto por ID o fecha de venta..."
+        disabled
       />
     </div>
+  </div>
 
-    <div class="control control--sort">
-      <label class="label">Ordenar por</label>
-      <div class="sort-group">
-        <button
-          class="chip"
-          [class.chip--active]="sortKey === 'revenue'"
-          (click)="setSort('revenue')"
-          title="Ordenar por ingresos"
-        >
-          Total
-          <span class="arrow" [class.asc]="sortKey === 'revenue' && sortDir === 'asc'"></span>
-        </button>
-        <button
-          class="chip"
-          [class.chip--active]="sortKey === 'unitsSold'"
-          (click)="setSort('unitsSold')"
-          title="Ordenar por unidades"
-        >
-          Vendidos
-          <span class="arrow" [class.asc]="sortKey === 'unitsSold' && sortDir === 'asc'"></span>
-        </button>
-        <button
-          class="chip"
-          [class.chip--active]="sortKey === 'name'"
-          (click)="setSort('name')"
-          title="Ordenar por nombre"
-        >
-          Nombre
-          <span class="arrow" [class.asc]="sortKey === 'name' && sortDir === 'asc'"></span>
-        </button>
+  <div class="ventas__table">
+    <div class="table__header">
+      <div class="th">ID Venta</div>
+      <div class="th">Fecha</div>
+      <div class="th">Producto</div>
+      <div class="th">Vendidos</div>
+      <div class="th">Precio Unitario</div>
+      <div class="th">Total</div>
+    </div>
+
+    <div class="table__row" *ngFor="let r of items; trackBy: trackById">
+      <div class="td">{{ r.saleId }}</div>
+      <div class="td">{{ r.date }}</div>
+      <div class="td td--product">
+        <img [src]="r.imageUrl" [alt]="r.productName" class="product__img" />
+        <div class="product__meta">
+          <div class="product__name">{{ r.productName }}</div>
+        </div>
+      </div>
+      <div class="td td--units">
+        <span class="num">{{ r.quantity }}</span>
+      </div>
+      <div class="td">
+        {{ r.unitPrice | currency:'ARS':'symbol-narrow':'1.0-0' }}
+      </div>
+      <div class="td num--strong">
+        {{ (r.unitPrice * r.quantity) | currency:'ARS':'symbol-narrow':'1.0-0' }}
       </div>
     </div>
   </div>
-
-  <!-- Tabla híbrida -->
-  <div class="ventas__table" role="table" aria-label="Listado de ventas por producto">
-    <div class="table__header" role="row">
-      <div class="th th--product" role="columnheader">Producto</div>
-      <div class="th th--units" role="columnheader">Vendidos</div>
-      <div class="th th--unit" role="columnheader">Precio unitario</div>
-      <div class="th th--total" role="columnheader">Total</div>
-    </div>
-
-    <ng-container *ngIf="rows.length; else empty">
-      <div
-        class="table__row"
-        role="row"
-        *ngFor="let r of rows; trackBy: trackById"
-      >
-        <div class="td td--product" role="cell">
-          <img [src]="r.imageUrl" [alt]="r.name" class="product__img" />
-          <div class="product__meta">
-            <div class="product__name">{{ r.name }}</div>
-            <div class="product__sub">ID: {{ r.id }}</div>
-          </div>
-        </div>
-
-        <div class="td td--units" role="cell">
-          <span class="num">{{ r.unitsSold }}</span>
-        </div>
-
-        <div class="td td--unit" role="cell">
-          <span class="num">{{ r.unitPrice | currency:'ARS':'symbol-narrow':'1.0-0' }}</span>
-        </div>
-
-        <div class="td td--total" role="cell">
-          <span class="num num--strong">
-            {{ (r.unitPrice * r.unitsSold) | currency:'ARS':'symbol-narrow':'1.0-0' }}
-          </span>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-
-  <ng-template #empty>
-    <div class="empty">
-      <div class="empty__card">
-        <div class="empty__emoji">🛍️</div>
-        <div class="empty__title">Sin resultados</div>
-        <div class="empty__text">No encontramos productos que coincidan con tu búsqueda.</div>
-      </div>
-    </div>
-  </ng-template>
 </div>

@@ -1,92 +1,48 @@
-// ventas.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
-
-type SortKey = 'revenue' | 'unitsSold' | 'name';
-type SortDir = 'asc' | 'desc';
-
-interface SaleItem {
-  id: string;
-  name: string;
+interface SaleTicket {
+  saleId: string;
+  date: string;
+  productName: string;
   imageUrl: string;
-  unitPrice: number; // Precio unitario
-  unitsSold: number; // Cantidad vendida
+  unitPrice: number;
+  quantity: number;
 }
 
 @Component({
-  selector: 'app-ventas',
+  selector: 'app-sales',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: './sales.component.html',
   styleUrls: ['./sales.component.css'],
 })
 export class SalesComponent {
-  // Estado UI
-  search = '';
-  sortKey: SortKey = 'revenue';
-  sortDir: SortDir = 'desc';
 
-  // Datos de ejemplo (podés reemplazar por tus datos)
-  items: SaleItem[] = [
+  // Datos que luego vendrán del backend
+  items: SaleTicket[] = [
     {
-      id: '1',
-      name: 'Botines Nike Mercurial',
-      imageUrl: 'frontend-testing/src/assets/img/messi.jpg',
-      unitPrice: 165000,
-      unitsSold: 12,
+      saleId: 'V-001',
+      date: '2025-09-10',
+      productName: 'Botines Nike Mercurial',
+      imageUrl: 'assets/img/messi.jpg',
+      unitPrice: 85000,
+      quantity: 12
     },
-    
+    {
+      saleId: 'V-002',
+      date: '2025-09-10',
+      productName: 'Mochila Jordan Essentials',
+      imageUrl: 'assets/img/mochila.jpg',
+      unitPrice: 35000,
+      quantity: 2
+    }
   ];
 
-  trackById = (_: number, item: SaleItem) => item.id;
-
-  // Derivados
-  get rows() {
-    const q = this.search.trim().toLowerCase();
-
-    const computed = this.items
-      .map((i) => ({
-        ...i,
-        revenue: i.unitPrice * i.unitsSold,
-      }))
-      .filter((i) => (q ? i.name.toLowerCase().includes(q) : true))
-      .sort((a, b) => {
-        const dir = this.sortDir === 'asc' ? 1 : -1;
-        switch (this.sortKey) {
-          case 'name':
-            return a.name.localeCompare(b.name) * dir;
-          case 'unitsSold':
-            return (a.unitsSold - b.unitsSold) * dir;
-          case 'revenue':
-          default:
-            return (a.revenue - b.revenue) * dir;
-        }
-      });
-
-    return computed;
-  }
-
-  get totalProducts(): number {
-    return this.rows.length;
-  }
-
-  get totalUnits(): number {
-    return this.rows.reduce((acc, r) => acc + r.unitsSold, 0);
-  }
+  trackById = (_: number, item: SaleTicket) => item.saleId;
 
   get totalRevenue(): number {
-    return this.rows.reduce((acc, r) => acc + r.revenue, 0);
-  }
-
-  setSort(key: SortKey) {
-    if (this.sortKey === key) {
-      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortKey = key;
-      this.sortDir = key === 'name' ? 'asc' : 'desc';
-    }
+    return this.items.reduce((acc, r) => acc + r.unitPrice * r.quantity, 0);
   }
 }
 
