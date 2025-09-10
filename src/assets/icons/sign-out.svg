@@ -1,2 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" id="sign-out-left-2" data-name="Flat Line" xmlns="http://www.w3.org/2000/svg" class="icon flat-line"><polyline id="primary" points="6 15 3 12 6 9" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></polyline><line id="primary-2" data-name="primary" x1="3" y1="12" x2="17" y2="12" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line><path id="primary-3" data-name="primary" d="M10,8V5a1,1,0,0,1,1-1h9a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H11a1,1,0,0,1-1-1V16" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="150.000000pt" height="150.000000pt" viewBox="0 0 150.000000 150.000000"
+ preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,150.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M320 1266 c-64 -17 -115 -59 -145 -121 l-26 -52 3 -354 3 -354 27
+-46 c49 -84 127 -119 258 -118 130 0 179 35 154 107 -13 36 -58 51 -165 51
+-137 1 -129 -21 -129 372 0 393 -8 369 128 370 108 0 153 14 166 52 15 42 -3
+80 -44 94 -45 15 -172 15 -230 -1z"/>
+<path d="M712 957 c-140 -140 -182 -188 -182 -207 0 -20 43 -69 188 -213 104
+-103 193 -187 199 -187 6 0 21 8 34 19 21 17 24 28 27 125 l4 106 140 0 c155
+0 187 9 213 60 20 38 20 142 0 180 -26 51 -58 60 -213 60 l-140 0 -4 104 c-4
+113 -13 136 -57 136 -21 0 -64 -38 -209 -183z"/>
+</g>
+</svg>
