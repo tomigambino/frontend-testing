@@ -1,65 +1,73 @@
-<div class="ventas">
-  <div class="ventas__top">
-    <div class="ventas__title">
-      <h2>Mis ventas</h2>
-      <p class="ventas__subtitle">Listado de ventas individuales</p>
-    </div>
-    <div class="ventas__metrics">
-      <div class="metric">
-        <span class="metric__label">Ingresos totales</span>
-        <span class="metric__value">
-          {{ totalRevenue | currency:'ARS':'symbol-narrow':'1.0-0' }}
-        </span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Barra de búsqueda (sin funcionalidad) -->
-  <div class="ventas__controls">
-    <div class="control control--search">
-      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 
-                 6.5 6.5 0 109.5 16a6.471 6.471 0 004.23-1.57l.27.28v.79L20 
-                 21.5 21.5 20 15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 
-                 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
-        </path>
-      </svg>
-      <input
-        type="text"
-        placeholder="Buscar producto por ID o fecha de venta..."
-        disabled
-      />
-    </div>
-  </div>
-
-  <div class="ventas__table">
-    <div class="table__header">
-      <div class="th">ID Venta</div>
-      <div class="th">Fecha</div>
-      <div class="th">Producto</div>
-      <div class="th">Vendidos</div>
-      <div class="th">Precio Unitario</div>
-      <div class="th">Total</div>
-    </div>
-
-    <div class="table__row" *ngFor="let r of items; trackBy: trackById">
-      <div class="td">{{ r.saleId }}</div>
-      <div class="td">{{ r.date }}</div>
-      <div class="td td--product">
-        <img [src]="r.imageUrl" [alt]="r.productName" class="product__img" />
-        <div class="product__meta">
-          <div class="product__name">{{ r.productName }}</div>
-        </div>
-      </div>
-      <div class="td td--units">
-        <span class="num">{{ r.quantity }}</span>
-      </div>
-      <div class="td">
-        {{ r.unitPrice | currency:'ARS':'symbol-narrow':'1.0-0' }}
-      </div>
-      <div class="td num--strong">
-        {{ (r.unitPrice * r.quantity) | currency:'ARS':'symbol-narrow':'1.0-0' }}
-      </div>
-    </div>
-  </div>
+<div id="sectorMisVentas">
+  <h2 class="pageTitle">Ventas Realizadas</h2>
+  <table id="tablaVentas">
+    <thead>
+      <tr>
+        <th class="columnaCentral">ID Venta</th>
+        <th class="columnaImagen">Producto</th>
+        <th class="columnaCentral">Detalle</th>
+        <th class="columnaCentral">Fecha</th>
+        <th class="columnaCentral">Precio</th>
+        <th class="columnaCentral">Cantidad</th>
+        <th class="columnaCentral">Total Venta</th>
+        <th class="columnaCentral">Acciones</th>
+      </tr>
+    </thead>
+    <tbody> 
+      <tr>  
+        <td>V-001</td>
+        <td>
+          <img loading="lazy" src="assets/img/messi.jpg" alt="Producto" class="imgProducto">
+        </td>
+        <td>
+          <p>Botin Adidas</p>
+        </td>
+        <td>
+          <p>10/09/2025</p>
+        </td>
+        <td>
+          <p>$2.000</p>
+        </td>
+        <td class="cantidad">
+          <span>12</span>
+        </td>
+        <td>$24.000</td>
+        <td class="acciones">
+          <a class="btnVerDetalle" href="/sales/V-001" title="Ver detalle">
+            <i class="fas fa-eye"></i>
+          </a>
+          <a class="btnEliminar" href="#" title="Eliminar">
+            <i class="fas fa-trash"></i>
+          </a>
+        </td>
+      </tr>
+      <tr>  
+        <td>V-002</td>
+        <td>
+          <img loading="lazy" src="assets/img/zanetti.webp" alt="Producto" class="imgProducto">
+        </td>
+        <td>
+          <p>Remera zanetti</p>
+        </td>
+        <td>
+          <p>10/09/2025</p>
+        </td>
+        <td>
+          <p>$4.000</p>
+        </td>
+        <td class="cantidad">
+          <span>5</span>
+        </td>
+        <td>$20.000</td>
+        <td class="acciones">
+          <a class="btnVerDetalle" href="/sales/V-001" title="Ver detalle">
+            <i class="fas fa-eye"></i>
+          </a>
+          <a class="btnEliminar" href="#" title="Eliminar">
+            <i class="fas fa-trash"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
