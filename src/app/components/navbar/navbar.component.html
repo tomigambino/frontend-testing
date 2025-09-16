@@ -27,27 +27,39 @@
     <button class="close-cart" (click)="toggleCart()">✕</button>
   </div>
 
- <div class="cart-body" *ngIf="cartCount > 0; else emptyCart">
-  <div class="cart-item" *ngFor="let item of cartItems; let i = index">
-    <div class="cart-item-info">
-      <td><span>{{ item.product.name }}</span> </td>
-    
-      <td><span>{{ item.product.price | currency:'ARS' }}</span></td>
-    
-      <td>Total: {{ total | currency:'ARS' }}</td>
+  <div class="cart-body" *ngIf="cartCount > 0; else emptyCart">
+    <div class="cart-item" *ngFor="let item of cartItems; let i = index">
+      <div class="cart-item-img">
+        <img *ngIf="item.product?.images?.length"
+            [src]="item.product?.images?.[0]?.url"
+            [alt]="item.product?.name || 'Producto'">
+      </div>
+      <div class="cart-item-info">
+        <span>{{ item.product.name }}</span>
+        <span>{{ item.product.price | currency:'ARS' }}</span>
+        
+      </div>
+      <div class="cart-item-button"> 
+        <button (click)="decrement()">−</button>
+        <span>{{ item.quantity }}</span>
+        <button (click)="increment()">+</button>
+      </div>
+      <div class="cart-item-totalprice">
+        <span>Total: {{ (item.product.price * item.quantity) | currency:'ARS' }}</span>
+      </div>
+      <div class="cart-item-price">
+        <img class="icon cart"
+             (click)="removeProduct(i)"
+             src="assets/icons/trash-solid-full.svg"
+             alt="Eliminar" />
+      </div>
     </div>
-    
-    
-    <img class="icon cart" (click)="removeProduct(i)" src="assets/icons/trash-solid-full.svg"  alt="Carrito" />
-
+    <button class="checkout-btn" (click)="payWithMercadoPago()">Finalizar compra</button>
   </div>
-  <button class="checkout-btn" (click)="payWithMercadoPago()">Finalizar compra</button>
+
+  <ng-template #emptyCart>
+    <div class="empty-cart">
+      Sin artículos
+    </div>
+  </ng-template>
 </div>
-
-
-
-<ng-template #emptyCart>
-  <div class="empty-cart">
-    Sin artículos
-  </div>
-</ng-template>
