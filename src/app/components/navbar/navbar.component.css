@@ -168,6 +168,7 @@
 }
 
 .cart-item{
+  font-family: var(--fuente-navbar);
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -191,6 +192,7 @@
 }
 
 .cart.item.button{
+  
   display: flex;
 }
 

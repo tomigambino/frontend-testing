@@ -70,3 +70,18 @@ button:focus {
   background-color: var(--background-navbar);
   padding-bottom: 6rem;
 }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 20vh;
+}
+
+main {
+  flex: 1;
+}

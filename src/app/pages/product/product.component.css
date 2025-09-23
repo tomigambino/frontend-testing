@@ -1,8 +1,10 @@
 .product-page {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: 1rem;
   padding: 2rem;
+  padding-left: 13rem;
+  align-items: center;
 }
 
 .gallery {
@@ -118,3 +120,8 @@
   transform: translateY(-1px);
 }
 
+.left-arrow{
+  width: 20px;
+  height: 20px;
+  padding: 1rem;
+}
