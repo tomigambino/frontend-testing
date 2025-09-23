@@ -173,6 +173,7 @@
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding: 8px;
 }
 
 
@@ -191,9 +192,37 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.cart.item.button{
-  
+.cart-item-totalprice{
+  padding: 8px;
+}
+
+.cart-item-button{
   display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cart-item-button .minor-button{  
+  display: flex;
+  background: var(--background-navbar);
+  color: var(--negro);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.cart-item-button .plus-button{  
+  display: flex;
+  background: var(--background-navbar);
+  color: var(--negro);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.cart-trash{
+  cursor: pointer;
 }
 
 .cart-pay{
