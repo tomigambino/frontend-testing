@@ -60,6 +60,23 @@ export class ApiService{
       }
     }
 
+    async getProductsByIds(idsParam: number[]){
+      try{
+        console.log('IDs recibidos en getProductsByIds:', idsParam);
+        // Convertimos el array a string separado por comas
+        const idsString = idsParam.join(',');
+        const response = await axiosService.get('/producto/carrito', {
+          params: {
+            ids: idsString
+          }
+        })
+        return response.data;
+      }catch(error){
+        console.error('Error find products by ids:', error);
+        throw error;
+      }
+    }
+
     async getAllProductByProductType(productTypeId: number){
       try{
         const response = await axiosService.get(`/producto/tipo/${productTypeId}`)

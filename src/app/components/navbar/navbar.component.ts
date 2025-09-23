@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CartService } from '../../service/cart.service';
 import { ApiService } from '../../service/api.service';
+import { CartItem } from '../../interfaces/cartItem-interface';
 import { SaleDetailInterface } from '../../interfaces/saleDetail-interface';
 
 @Component({
@@ -14,11 +15,14 @@ import { SaleDetailInterface } from '../../interfaces/saleDetail-interface';
 })
 export class NavbarComponent implements OnInit {
 
-  cartItems: SaleDetailInterface[] = [];
+  // CREO QUE HAY QUE CAMBIAR LO DE ITEM PORQUE NO ESTAMOS ACTUALIZANDO EL DETALLE DEL PRODUCTO, SOLO ACTUALIZAMOS LA VISTA
+
+  cartItems: CartItem[] = [];
   cartCount = 0;
   total = 0;
   showCartPanel = false;
   item: any;
+  cartDetails: SaleDetailInterface[] = [];
 
   constructor(
     public cartService: CartService,
@@ -26,13 +30,22 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.cartService.getCartObservable().subscribe(cart => {
+    // Suscribirse a cambios en el carrito
+    this.cartService.getCartObservable().subscribe(async cart => {
       this.cartItems = cart || [];
+
+      //Contamos la cantidad total de productos en el carrito
       this.cartCount = this.cartItems.length;
-      this.total = this.cartItems.reduce(
-        (sum, item) => sum + (item.totalDetail || 0),
-        0
-      );
+      if (cart.length > 0) {
+        try {
+          this.cartDetails = await this.cartService.getCartWithDetails();
+          this.total = this.cartDetails.reduce((sum, item) => sum + item.totalDetail, 0);
+        } catch (error) {
+          console.error('Error loading cart details:', error);
+          this.cartDetails = [];
+          this.total = 0;
+        }
+      }
     });
   }
 
