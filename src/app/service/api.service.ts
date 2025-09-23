@@ -10,6 +10,23 @@ export class ApiService{
 
     constructor( ){}
 
+    async createSale(cartDetails: SaleDetailInterface[]): Promise<number> {
+      try {
+        const saleDetailsIds: number[] = [];
+        // Primero, crear cada detalle de venta y almacenar sus IDs
+        for (const detail of cartDetails) {
+          const response = await axiosService.post('/detalleVenta', {productId: detail.product.id, quantity: detail.quantity});
+          saleDetailsIds.push(response.data.id);
+        }
+        // REEMPLAZAR EL CUSTOMER ID CON EL ID DEL USUARIO LOGUEADO
+        const response = await axiosService.post('/venta', { customerId: 1, saleDetailIds: saleDetailsIds });
+        return response.data.id;
+      } catch (error) {
+        console.error('Error creating sale:', error);
+        throw error;
+      }
+    }
+
     async generatePay(saleId: number){
       try{
         const response = await axiosService.get(`/pago/${saleId}`)

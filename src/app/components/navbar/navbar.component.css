@@ -194,6 +194,23 @@
   display: flex;
 }
 
+.cart-pay{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-top: 1px solid var(--shadow);
+}
+
+.cart-pay .checkout-btn { 
+  background: var(--verde);
+  color: var(--blanco);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
 .close-cart {
   background: none;
   border: none;

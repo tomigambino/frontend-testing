@@ -54,7 +54,10 @@
              alt="Eliminar" />
       </div>
     </div>
-    <button class="checkout-btn" (click)="payWithMercadoPago()">Finalizar compra</button>
+    <div class="cart-pay">
+      <span class="total-price">Total: {{ total | currency:'ARS' }}</span>
+      <button class="checkout-btn" (click)="payWithMercadoPago(cartDetails)">Finalizar compra</button>
+    </div>
   </div>
 
   <ng-template #emptyCart>

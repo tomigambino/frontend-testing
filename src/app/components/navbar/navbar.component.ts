@@ -57,9 +57,10 @@ export class NavbarComponent implements OnInit {
     this.cartService.removeProduct(index);
   }
 
-  async payWithMercadoPago(): Promise<void> {
+  async payWithMercadoPago(cartDetails: SaleDetailInterface[]): Promise<void> {
     try {
-      const initPoint = await this.apiService.generatePay(1);
+      const saleId = await this.apiService.createSale(cartDetails);
+      const initPoint = await this.apiService.generatePay(saleId);
 
       if (!initPoint) {
         console.error('InitPoint está vacío o undefined');
