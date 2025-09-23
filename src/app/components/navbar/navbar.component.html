@@ -40,18 +40,17 @@
 
       </div>
       <div class="cart-item-button"> 
-        <button (click)="decrement()">−</button>
-        <span>{{ detail.quantity }}</span>
-        <button (click)="increment()">+</button>
+        <button class="minor-button" (click)="decrement()">−</button>
+        <span class="number-button">{{ detail.quantity }}</span>
+        <button class='plus-button' (click)="increment()">+</button>
       </div>
       <div class="cart-item-totalprice">
         <span>Subtotal: {{ (detail.product.price * detail.quantity) | currency:'ARS' }}</span>
       </div>
-      <div class="cart-item-price">
-        <img class="icon cart"
-             (click)="removeProduct(i)"
-             src="assets/icons/trash-solid-full.svg"
-             alt="Eliminar" />
+      <div class="cart-trash">
+        <a (click)="removeProduct(i)">
+          <i class="fa-solid fa-trash" style="color: #000000;"></i>
+        </a>
       </div>
     </div>
     <div class="cart-pay">
