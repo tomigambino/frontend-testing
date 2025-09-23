@@ -50,7 +50,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   async addToCart(prod: ProductInterface){
-    await this.cartService.addToCart(prod, this.currentQuantity)
+    await this.cartService.addToCart(prod.id, this.currentQuantity)
     this.currentQuantity = 1;
   }
 }

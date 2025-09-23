@@ -10,6 +10,23 @@ export class ApiService{
 
     constructor( ){}
 
+    async createSale(cartDetails: SaleDetailInterface[]): Promise<number> {
+      try {
+        const saleDetailsIds: number[] = [];
+        // Primero, crear cada detalle de venta y almacenar sus IDs
+        for (const detail of cartDetails) {
+          const response = await axiosService.post('/detalleVenta', {productId: detail.product.id, quantity: detail.quantity});
+          saleDetailsIds.push(response.data.id);
+        }
+        // REEMPLAZAR EL CUSTOMER ID CON EL ID DEL USUARIO LOGUEADO
+        const response = await axiosService.post('/venta', { customerId: 1, saleDetailIds: saleDetailsIds });
+        return response.data.id;
+      } catch (error) {
+        console.error('Error creating sale:', error);
+        throw error;
+      }
+    }
+
     async generatePay(saleId: number){
       try{
         const response = await axiosService.get(`/pago/${saleId}`)
@@ -56,6 +73,23 @@ export class ApiService{
         return response.data;
       } catch(error){
         console.error('Error find products:', error);
+        throw error;
+      }
+    }
+
+    async getProductsByIds(idsParam: number[]){
+      try{
+        console.log('IDs recibidos en getProductsByIds:', idsParam);
+        // Convertimos el array a string separado por comas
+        const idsString = idsParam.join(',');
+        const response = await axiosService.get('/producto/carrito', {
+          params: {
+            ids: idsString
+          }
+        })
+        return response.data;
+      }catch(error){
+        console.error('Error find products by ids:', error);
         throw error;
       }
     }
