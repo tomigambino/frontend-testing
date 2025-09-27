@@ -21,18 +21,64 @@
 }
 
 #tablaVentas tr:hover {
-  background-color: rgba(0,0,0,0.03);
+  background-color: rgba(0,0,0,0.05); /* resalta toda la venta (una sola fila) */
 }
 
+/* Bloque interno de productos dentro de la celda fusionada */
+.productosVenta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left; /* alinea mejor contenido interno */
+}
+
+/* Encabezado interno de las 3 subcolumnas */
+.productosVenta__header {
+  display: grid;
+  grid-template-columns: 1fr 100px 140px; /* Producto | Cantidad | Precio */
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Cada ítem de detalle: 3 subcolumnas */
+.productoDetalle {
+  display: grid;
+  grid-template-columns: 1fr 100px 140px; /* coincide con el header */
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(0,0,0,0.08);
+}
+
+.productoDetalle:last-child {
+  border-bottom: none;
+}
+
+/* Subceldas */
+.productoDetalle__info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.productoDetalle__qty,
+.productoDetalle__price {
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Imagen */
 .imgProducto {
-  width: 56px;
-  height: 56px;
+  width: 40px; /* más compacto dentro del listado */
+  height: 40px;
   border-radius: 8px;
   object-fit: cover;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-.cantidad span {
+/* Cantidad pill */
+.cantidad span,
+.productoDetalle__qty {
   display: inline-block;
   padding: 4px 8px;
   background: var(--background-color);
@@ -56,4 +102,3 @@
   background-color: var(--rojo);
   color: var(--background-color);
 }
-

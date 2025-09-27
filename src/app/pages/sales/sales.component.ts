@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SaleInterface } from '../../interfaces/sale-interface';
+import { ApiService } from '../../service/api.service';
 
 interface SaleTicket {
   saleId: string;
@@ -17,7 +19,15 @@ interface SaleTicket {
   templateUrl: './sales.component.html',
   styleUrls: ['./sales.component.css'],
 })
-export class SalesComponent {
+export class SalesComponent implements OnInit {
+
+  sales: SaleInterface[] = [];
+
+  constructor(private apiService: ApiService) {}
+
+  async ngOnInit() {
+    this.sales = await this.loadSales()
+  }
 
   // Datos que luego vendrán del backend
   items: SaleTicket[] = [
@@ -43,6 +53,10 @@ export class SalesComponent {
 
   get totalRevenue(): number {
     return this.items.reduce((acc, r) => acc + r.unitPrice * r.quantity, 0);
+  }
+
+  async loadSales(): Promise<SaleInterface[]>{
+    return await this.apiService.getAllSales();
   }
 }
 

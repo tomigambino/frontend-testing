@@ -5,69 +5,67 @@
       <tr>
         <th class="columnaCentral">ID Venta</th>
         <th class="columnaImagen">Producto</th>
-        <th class="columnaCentral">Detalle</th>
-        <th class="columnaCentral">Fecha</th>
-        <th class="columnaCentral">Precio</th>
         <th class="columnaCentral">Cantidad</th>
+        <th class="columnaCentral">Precio</th>
         <th class="columnaCentral">Total Venta</th>
+        <th class="columnaCentral">Fecha</th>
         <th class="columnaCentral">Acciones</th>
       </tr>
     </thead>
-    <tbody> 
-      <tr>  
-        <td>V-001</td>
-        <td>
-          <img loading="lazy" src="assets/img/messi.jpg" alt="Producto" class="imgProducto">
-        </td>
-        <td>
-          <p>Botin Adidas</p>
-        </td>
-        <td>
-          <p>10/09/2025</p>
-        </td>
-        <td>
-          <p>$2.000</p>
-        </td>
-        <td class="cantidad">
-          <span>12</span>
-        </td>
-        <td>$24.000</td>
-        <td class="acciones">
-          <a class="btnVerDetalle" href="/sales/V-001" title="Ver detalle">
-            <i class="fas fa-eye"></i>
-          </a>
-          <a class="btnEliminar" href="#" title="Eliminar">
-            <i class="fas fa-trash"></i>
-          </a>
-        </td>
-      </tr>
-      <tr>  
-        <td>V-002</td>
-        <td>
-          <img loading="lazy" src="assets/img/zanetti.webp" alt="Producto" class="imgProducto">
-        </td>
-        <td>
-          <p>Remera zanetti</p>
-        </td>
-        <td>
-          <p>10/09/2025</p>
-        </td>
-        <td>
-          <p>$4.000</p>
-        </td>
-        <td class="cantidad">
-          <span>5</span>
-        </td>
-        <td>$20.000</td>
-        <td class="acciones">
-          <a class="btnVerDetalle" href="/sales/V-001" title="Ver detalle">
-            <i class="fas fa-eye"></i>
-          </a>
-          <a class="btnEliminar" href="#" title="Eliminar">
-            <i class="fas fa-trash"></i>
-          </a>
-        </td>
-      </tr>
+    <tbody>
+      @for (sale of sales; track sale.id) {
+        <tr class="venta-row">
+          <!-- ID de la venta -->
+          <td>V-{{ sale.id }}</td>
+
+          <!-- Celda fusionada: Producto + Cantidad + Precio -->
+          <td [attr.colspan]="3">
+            <div class="productosVenta">
+              <div class="productosVenta__header">
+                <span>Producto</span>
+                <span>Cantidad</span>
+                <span>Precio unitario</span>
+              </div>
+
+              @for (detail of sale.saleDetail; track detail.product.id) {
+                <div class="productoDetalle">
+                  <div class="productoDetalle__info">
+                    <img
+                      loading="lazy"
+                      [src]="detail.product.images?.[0]?.url"
+                      alt="{{ detail.product.name }}"
+                      class="imgProducto"
+                    />
+                    <span>{{ detail.product.name }}</span>
+                  </div>
+                  <div class="productoDetalle__qty">
+                    {{ detail.quantity }}
+                  </div>
+                  <div class="productoDetalle__price">
+                    {{ '$' + detail.product.price }}
+                  </div>
+                </div>
+              }
+            </div>
+          </td>
+
+          <!-- Total de la venta -->
+          <td>{{ '$' + sale.total }}</td>
+
+          <!-- Fecha -->
+          <td><p>{{ sale.saleDate | date: 'dd/MM/yyyy' }}</p></td>
+
+          <!-- Acciones -->
+          <td class="acciones">
+            <a class="btnVerDetalle" title="Ver detalle">
+              <i class="fas fa-eye"></i>
+            </a>
+            <a class="btnEliminar" href="#" title="Eliminar">
+              <i class="fas fa-trash"></i>
+            </a>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
 </div>

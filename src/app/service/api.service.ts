@@ -94,6 +94,16 @@ export class ApiService{
       }
     }
 
+    async getAllSales(){
+      try{
+        const response = await axiosService.get(`/venta`)
+        return response.data;
+      } catch(error){
+        console.error('Error find sales:', error);
+        throw error;
+      }
+    }
+
     async getAllProductByProductType(productTypeId: number){
       try{
         const response = await axiosService.get(`/producto/tipo/${productTypeId}`)
