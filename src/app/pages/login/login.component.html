@@ -1,52 +1,39 @@
-<div class="container-fluid" id="login-container">
-  <div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow p-4">
+<div class="login-container">
+  <div class="login-card">
+    <!-- Título -->
+    <h2 class="title">Login</h2>
 
-      <!-- Título -->
-      <h2 class="text-center mb-4">Login</h2>
-
-      <!-- Forms -->
-      <form [formGroup]="loginForm" (ngSubmit)="getDataLogin()">
-        <!-- Form de email -->
-        <div class="form-group">
-          <input type="email" class="form-control mt-3" id="email" placeholder="email" formControlName="email" required>
-          <!-- Verifica condiciones y muestra un mensaje de error en caso de ser necesario -->
-          @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
-          <small class="error-msg">
-            Invalid email address
-          </small>
-          }
-        </div>
-
-        <!-- Form de contraseña -->
-        <div class="form-group">
-          <input type="password" class="form-control mt-4" id="password" placeholder="password"
-            formControlName="password" required>
-          <!-- Verifica condiciones y muestra un mensaje de error en caso de ser necesario -->
-          @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
-          <small class="error-msg">
-            The password must have more than 5 characters
-          </small>
-          }
-        </div>
-
-        <!-- Botón de Login -->
-        <button type="submit" class="btn btn-primary d-block mx-auto btn-extra">Login</button>
-      </form>
-
-      <!-- Botón para dirigirnos a pantalla de registro -->
-      <div class="text-center mt-1 mb-3">
-        don’t have an account?
-        <button (click)="goToSignUp()" class="btn btn-link text-decoration-underline"> sign up</button>
+    <!-- Formulario -->
+    <form [formGroup]="loginForm" (ngSubmit)="getDataLogin()">
+      <!-- Email -->
+      <div class="form-group">
+        <input type="email" id="email" placeholder="Email" formControlName="email" required>
+        @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+          <small class="error-msg">Invalid email address</small>
+        }
       </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <input type="password" id="password" placeholder="Password" formControlName="password" required>
+        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+          <small class="error-msg">The password must have more than 5 characters</small>
+        }
+      </div>
+
+      <!-- Botón -->
+      <button type="submit" class="btn">Login</button>
+    </form>
+
+    <!-- Link a registro -->
+    <div class="signup-text">
+      Don’t have an account?
+      <button (click)="goToSignUp()" class="link-btn">Sign up</button>
     </div>
 
     <!-- Mensaje de error -->
     @if (errorMsg) {
-    <div class="alert alert-danger">
-      {{ errorMsg }}
-    </div>
+      <div class="alert">{{ errorMsg }}</div>
     }
-
   </div>
 </div>

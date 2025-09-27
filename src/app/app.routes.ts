@@ -4,13 +4,11 @@ import { ProductDetailComponent } from './pages/product/product.component';
 import { SalesComponent } from './pages/sales/sales.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
-import { TemplateComponent } from './pages/template/template.component';
 import { canActivateFn } from './service/auth.guard';
 
 export const routes: Routes = [
     { 
         path: '', 
-        component: TemplateComponent,
         canActivate: [canActivateFn],
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
