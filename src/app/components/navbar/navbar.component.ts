@@ -81,13 +81,15 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  increment(): void {
-    this.item.quantity++;
+  async increment(productId: number): Promise<void> {
+    await this.cartService.incrementQuantity(productId);
   }
 
-  decrement(): void {
-    if (this.item.quantity > 1) {
-      this.item.quantity--;
-    }
+  async decrement(productId: number): Promise<void> {
+    await this.cartService.decrementQuantity(productId);
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }

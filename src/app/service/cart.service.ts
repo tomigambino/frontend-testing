@@ -51,6 +51,25 @@ export class CartService {
     this.updateCart(currentCart);
   }
 
+  async incrementQuantity(productId: number) {
+    const currentCart = this.getCart();
+    const item = currentCart.find(i => i.productId === productId);
+
+    if (item) {
+      item.quantity++;
+      this.updateCart(currentCart);
+    }
+  }
+
+  async decrementQuantity(productId: number) {
+    const currentCart = this.getCart();
+    const item = currentCart.find(i => i.productId === productId);
+    if (item) {
+      item.quantity = Math.max(1, item.quantity - 1);
+      this.updateCart(currentCart);
+    }
+  }
+
   updateCart(currentCart: CartItem[]) {
     localStorage.setItem(this.cartKey, JSON.stringify(currentCart));
     this.cart$.next([...currentCart]);

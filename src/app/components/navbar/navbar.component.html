@@ -8,7 +8,7 @@
   </div>
 
   <div class="icons-right">
-    <button class="icon-btn" routerLink="/logout">
+    <button class="icon-btn" (click)="logout()">
       <img class="icon sign-out" src="assets/icons/sign-out.svg" alt="Cerrar sesión" />
     </button>
     
@@ -40,9 +40,9 @@
 
       </div>
       <div class="cart-item-button"> 
-        <button class="minor-button" (click)="decrement()">−</button>
+        <button class="minor-button" (click)="decrement(detail.product.id)">−</button>
         <span class="number-button">{{ detail.quantity }}</span>
-        <button class='plus-button' (click)="increment()">+</button>
+        <button class='plus-button' (click)="increment(detail.product.id)">+</button>
       </div>
       <div class="cart-item-totalprice">
         <span>Subtotal: {{ (detail.product.price * detail.quantity) | currency:'ARS' }}</span>
