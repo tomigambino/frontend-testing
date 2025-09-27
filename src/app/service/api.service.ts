@@ -2,13 +2,14 @@ import { Injectable } from "@angular/core";
 import { axiosService } from "./axiosClient";
 import { SaleDetailInterface } from "../interfaces/saleDetail-interface";
 import { SaleInterface } from "../interfaces/sale-interface";
+import { AuthService } from "./auth.service";
 
 @Injectable({
   providedIn: 'root' // Indica que el servicio se proveerá en la raíz de la aplicación.
 })
 export class ApiService{
 
-    constructor( ){}
+    constructor( private authService: AuthService ){}
 
     async createSale(cartDetails: SaleDetailInterface[]): Promise<number> {
       try {
@@ -18,8 +19,8 @@ export class ApiService{
           const response = await axiosService.post('/detalleVenta', {productId: detail.product.id, quantity: detail.quantity});
           saleDetailsIds.push(response.data.id);
         }
-        // REEMPLAZAR EL CUSTOMER ID CON EL ID DEL USUARIO LOGUEADO
-        const response = await axiosService.post('/venta', { customerId: 1, saleDetailIds: saleDetailsIds });
+        const customerId = await this.authService.getCustomerId();
+        const response = await axiosService.post('/venta', { customerId: customerId, saleDetailIds: saleDetailsIds });
         return response.data.id;
       } catch (error) {
         console.error('Error creating sale:', error);

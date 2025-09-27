@@ -72,4 +72,14 @@ export class AuthService {
     redirectToLogin(): void {
         this.router.navigate(['/login']);
     }
+
+    async getCustomerId(): Promise<number | null> {
+        try {
+            const response = await axiosPrivate.get('/auth/getCustomerId');
+            return response.data.customerId;
+        } catch (error) {
+            console.error('Error fetching customer ID:', error);
+            return null;
+        }
+    }
 }
