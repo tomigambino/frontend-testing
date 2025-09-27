@@ -72,7 +72,6 @@ export class CartService {
   // cart.service.ts
 async getCartWithDetails(): Promise<SaleDetailInterface[]> {
   const cartItems = this.getCart(); // [{ productId: 1, quantity: 2 }]
-  console.log('Current cart items:', cartItems);
   if (cartItems.length === 0) {
     return [];
   }
@@ -80,7 +79,6 @@ async getCartWithDetails(): Promise<SaleDetailInterface[]> {
   const productIds = cartItems.map(item => item.productId);
   
   try {
-    console.log('Product IDs to fetch:', productIds);
     // Buscar productos por IDs
     const products: ProductInterface[] = await this.apiService.getProductsByIds(productIds);
     

@@ -10,29 +10,6 @@ export class ApiService{
 
     constructor( ){}
 
-      // Inicia sesión con email y contraseña y guarda el token de acceso
-  async login(email: string, password: string) {
-    try {
-      const data = { email, password }
-      const response = await axiosService.post('/login', data)
-      localStorage.setItem('accessToken', response.data.accessToken) // Guarda el token en localStorage
-      return;
-    } catch (error) {
-      throw new Error('Datos incorrectos o usuario no registrado');
-    }
-  }
-
-  // Registra un nuevo usuario con los datos proporcionados
-  async signUp(name: string, surname: string, email: string, password: string) {
-    try {
-      const data = { name, surname, email, password }
-      const response = await axiosService.post('/register', data)
-      return response.data // Devuelve los datos del usuario registrado
-    } catch (error) {
-      throw error;
-    }
-  }
-
     async createSale(cartDetails: SaleDetailInterface[]): Promise<number> {
       try {
         const saleDetailsIds: number[] = [];
@@ -102,7 +79,6 @@ export class ApiService{
 
     async getProductsByIds(idsParam: number[]){
       try{
-        console.log('IDs recibidos en getProductsByIds:', idsParam);
         // Convertimos el array a string separado por comas
         const idsString = idsParam.join(',');
         const response = await axiosService.get('/producto/carrito', {

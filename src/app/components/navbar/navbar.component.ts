@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CartService } from '../../service/cart.service';
 import { ApiService } from '../../service/api.service';
 import { CartItem } from '../../interfaces/cartItem-interface';
 import { SaleDetailInterface } from '../../interfaces/saleDetail-interface';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -25,8 +26,10 @@ export class NavbarComponent implements OnInit {
   cartDetails: SaleDetailInterface[] = [];
 
   constructor(
-    public cartService: CartService,
-    public apiService: ApiService
+    private cartService: CartService,
+    private apiService: ApiService,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -58,6 +61,11 @@ export class NavbarComponent implements OnInit {
   }
 
   async payWithMercadoPago(cartDetails: SaleDetailInterface[]): Promise<void> {
+    // Verificamos que este logueado, y en caso de que no, lo redirigimos al login
+    if ( !await this.authService.isLoggedIn()) {
+      this.router.navigate(['/login']);
+      return;
+    };
     try {
       const saleId = await this.apiService.createSale(cartDetails);
       const initPoint = await this.apiService.generatePay(saleId);

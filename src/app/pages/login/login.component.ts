@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../service/api.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,8 +19,7 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private apiService: ApiService,
-
+    private authService: AuthService
   ) { }
 
   errorMsg: string = '' // Mensaje de error para mostrar al usuario
@@ -45,7 +45,7 @@ export class LoginComponent {
     }
     try {
       const { email, password } = this.loginForm.value; // Obtiene los valores del formulario
-      await this.apiService.login(email, password); // Llama al servicio para iniciar sesión
+      await this.authService.login(email, password); // Llama al servicio para iniciar sesión
       await this.router.navigate(['/home']); // Navega a home después del inicio de sesión exitoso
     } catch (e) {
       this.errorMsg = 'Incomplete or incorrect information';
