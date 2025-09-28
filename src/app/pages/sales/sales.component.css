@@ -1,6 +1,15 @@
+.top-space{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .pageTitle{
-  margin-left: 32px;
   font-family: var(--fuente-navbar);
+}
+
+.left-arrow{
+  padding: 1rem;
 }
 
 #tablaVentas {
