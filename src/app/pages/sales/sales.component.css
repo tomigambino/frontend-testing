@@ -111,3 +111,40 @@
   background-color: var(--rojo);
   color: var(--background-color);
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+  font-family: var(--fuente-navbar);
+}
+
+.pagination button {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--boton);
+  color: var(--background-color);
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #444; /* o un tono más oscuro de tu var(--boton) */
+  transform: translateY(-1px);
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.page-info {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333;
+}
+

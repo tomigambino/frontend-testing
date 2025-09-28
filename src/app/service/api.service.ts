@@ -3,6 +3,8 @@ import { axiosService } from "./axiosClient";
 import { SaleDetailInterface } from "../interfaces/saleDetail-interface";
 import { SaleInterface } from "../interfaces/sale-interface";
 import { AuthService } from "./auth.service";
+import { PaginatedSales } from "../interfaces/paginatedSales-interface";
+import { PaginatedProducts } from "../interfaces/paginatedProducts";
 
 @Injectable({
   providedIn: 'root' // Indica que el servicio se proveerá en la raíz de la aplicación.
@@ -94,14 +96,18 @@ export class ApiService{
       }
     }
 
-    async getAllSales(){
-      try{
-        const response = await axiosService.get(`/venta`)
-        return response.data;
-      } catch(error){
-        console.error('Error find sales:', error);
-        throw error;
-      }
+    async getSales(page: number, limit: number): Promise<PaginatedSales> {
+      const res = await axiosService.get<PaginatedSales>('/venta', {
+        params: { page, limit }
+      });
+      return res.data;
+    }
+
+    async getProducts(page: number, limit: number): Promise<PaginatedProducts> {
+      const res = await axiosService.get<PaginatedProducts>('/producto', {
+        params: { page, limit }
+      });
+      return res.data;
     }
 
     async getAllProductByProductType(productTypeId: number){

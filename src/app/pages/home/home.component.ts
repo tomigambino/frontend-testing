@@ -15,49 +15,38 @@ import { ApiService } from '../../service/api.service';
 export class HomeComponent implements OnInit {
 
   products: ProductInterface[] = []
-  currentPage = 1;
-  itemsPerPage = 8;
-  currentQuantity = 1; // Cantidad del producto por defecto
+  total = 0;
+  page = 1;
+  pages: number[] = []; // Array de páginas
+  limit = 5; // cantidad por página
+  totalPages = 0;
 
   constructor(
     private apiService: ApiService
   ){}
 
-  get productosPaginados(): ProductInterface[] {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.products.slice(startIndex, startIndex + this.itemsPerPage);
-  }
-
   async ngOnInit() {
-    // Inicializa las props extra sobre la lista original
-    this.products = await this.apiService.getAllProducts()
+    await this.loadProducts();
   }
 
-  getTotalPaginas(): number[] {
-    if (!this.products.length) return [];
-    const total = Math.ceil(this.products.length / this.itemsPerPage);
-    return Array.from({ length: total }, (_, i) => i + 1);
+  async loadProducts(): Promise<void> {
+    const res = await this.apiService.getProducts(this.page, this.limit);
+    this.products = res.data;
+    this.total = res.total;
+    this.totalPages = Math.ceil(this.total / this.limit);
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
-  goToPage(page: number): void {
-    this.currentPage = page;
+  prevPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.loadProducts();
+    }
   }
-
-  paginaAnterior(): void {
-    if (this.currentPage > 1) this.currentPage--;
-  }
-
-  paginaSiguiente(): void {
-    if (this.currentPage < this.getTotalPaginas().length) this.currentPage++;
-  }
-
-  increment(): void {
-    this.currentQuantity += 1;
-  }
-
-  decrement(): void {
-    if(this.currentQuantity>1){
-      this.currentQuantity -= 1;
+  nextPage() {
+    if (this.page < this.totalPages) {
+      this.page++;
+      this.loadProducts();
     }
   }
 

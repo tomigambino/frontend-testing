@@ -15,17 +15,39 @@ import { RouterModule } from '@angular/router';
 export class SalesComponent implements OnInit {
 
   sales: SaleInterface[] = [];
+  total = 0;
+  page = 1;
+  pages: number[] = []; // Array de páginas
+  limit = 5; // cantidad por página
+  totalPages = 0;
 
   constructor(private apiService: ApiService) {}
 
   async ngOnInit() {
-    this.sales = await this.loadSales()
+    await this.loadSales()
   }
 
   trackById = (_: number, item: SaleInterface) => item.id;
 
-  async loadSales(): Promise<SaleInterface[]>{
-    return await this.apiService.getAllSales();
+  async loadSales(): Promise<void> {
+    const res = await this.apiService.getSales(this.page, this.limit);
+    this.sales = res.data;
+    this.total = res.total;
+    this.totalPages = Math.ceil(this.total / this.limit);
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  prevPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.loadSales();
+    }
+  }
+  nextPage() {
+    if (this.page < this.totalPages) {
+      this.page++;
+      this.loadSales();
+    }
   }
 }
 

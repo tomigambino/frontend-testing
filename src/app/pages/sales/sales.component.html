@@ -74,4 +74,18 @@
       }
     </tbody>
   </table>
+
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="page === 1">
+      ‹ Anterior
+    </button>
+
+    <div class="page-info">
+      Página {{ page }} de {{ totalPages }}
+    </div>
+
+    <button (click)="nextPage()" [disabled]="page === totalPages">
+      Siguiente ›
+    </button>
+  </div>
 </div>
