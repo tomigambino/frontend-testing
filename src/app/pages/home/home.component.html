@@ -1,6 +1,18 @@
 <div class="home-container">
   <section class="home-content">
+    <div class="filter">
+      <button (click)="toggleMenu()">
+        Filtrar por <span [class.rotated]="menuOpen">▶</span>
+      </button>
+
+      <ul *ngIf="menuOpen" class="filter-options">
+        <li *ngFor="let type of productTypes">
+          {{ type }}
+        </li>
+      </ul>
+    </div>
     <section class="product-grid">
+
       @for (item of products; track item.id) {
         <div class="product-item">
           <div class="product-card" [routerLink]="['/product', item.id]">
