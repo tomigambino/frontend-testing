@@ -1,8 +1,14 @@
 <div class="left-arrow">
-    <a routerLink="/home">
-      <i class="fa-sharp fa-solid fa-arrow-left" style="color: #000000;"></i>
-    </a>
+  <a routerLink="/home">
+    <i class="fa-sharp fa-solid fa-arrow-left" style="color: #000000;"></i>
+  </a>
+  <div class="link-router">
+    <span class="home" router="home">Home/</span>
+    <span class="product">Product/</span>
+    <span>{{ product.name }}</span>
   </div>
+</div>
+
 <div class="product-page">
   <!-- Columna izquierda: galería -->
    @if(product){
@@ -22,10 +28,14 @@
   </div>
 
   <!-- Columna derecha: info -->
+   
   <div class="product-info">
-    <h1>{{ product.name }}</h1>
-    <p class="price">${{ product.price | number: '1.2-2' }}</p>
+    <h5 class="new">LO NUEVO</h5>
+    <h1 class="product-title">{{ product.name }}</h1>
     <p class="description">{{ product.description }}</p>
+    <p class="price">${{ product.price | number: '1.2-2' }}</p>
+    <p class="installments">6 cuotas sin interes de 6x$9.167</p>
+    
 
     <div class="quantity">
       <button (click)="decrement()">−</button>
