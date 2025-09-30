@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SaleInterface } from '../../interfaces/sale-interface';
 import { ApiService } from '../../service/api.service';
 import { RouterModule } from '@angular/router';
+import { CustomerInterface } from '../../interfaces/customer-interface';
 
 
 @Component({
@@ -20,6 +21,8 @@ export class SalesComponent implements OnInit {
   pages: number[] = []; // Array de páginas
   limit = 5; // cantidad por página
   totalPages = 0;
+  isModalOpen = false;
+  customer: CustomerInterface | null = null
 
   constructor(private apiService: ApiService) {}
 
@@ -49,18 +52,16 @@ export class SalesComponent implements OnInit {
       this.loadSales();
     }
   }
-  abrirModal() {
-    const modal = document.getElementById('modalCliente');
-    if (modal) {
-      modal.style.display = 'flex'; // lo mostramos centrado
-    }
+  openModal(customer: CustomerInterface): void {
+    console.log(customer)
+    this.customer = customer;
+    this.isModalOpen = true;
+    console.log(this.isModalOpen)
   }
 
-  cerrarModal() {
-    const modal = document.getElementById('modalCliente');
-    if (modal) {
-    modal.style.display = 'none'; // lo ocultamos
-    }
+  closeModal(): void {
+    this.isModalOpen = false;
+    this.customer = null;
   }
 
 }
