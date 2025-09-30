@@ -34,7 +34,7 @@
     <h1 class="product-title">{{ product.name }}</h1>
     <p class="description">{{ product.description }}</p>
     <p class="price">${{ product.price | number: '1.2-2' }}</p>
-    <p class="installments">6 cuotas sin interes de 6x$9.167</p>
+    <p class="installments">3 cuotas sin interes de {{product.price / 3 | number: '1.0-0'}}</p>
     
 
     <div class="quantity">
