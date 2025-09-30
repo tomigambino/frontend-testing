@@ -4,6 +4,8 @@ import { ProductTypeInterface } from "../../interfaces/productType-interface";
 import { ProductInterface } from "../../interfaces/product-interface";
 import { ApiService } from "../../service/api.service";
 import { RouterModule } from '@angular/router';
+import { CustomerInterface } from "../../interfaces/customer-interface";
+import { SaleInterface } from "../../interfaces/sale-interface";
 
 
 @Component({
@@ -13,74 +15,50 @@ import { RouterModule } from '@angular/router';
     styleUrls: ['./my-products.component.css']
 })
 export class MyProductComponent implements OnInit {
-    products: ProductInterface[] = []
-    productTypes: ProductTypeInterface[] = [];
-    selectedTypeId: number | null = null;
-    menuOpen = false;
-    total = 0;
-    page = 1;
-    pages: number[] = []; // Array de páginas
-    limit = 6; // cantidad por página
-    totalPages = 0;
-    modalAbierto = false;
+  total = 0;
+  page = 1;
+  pages: number[] = []; // Array de páginas
+  limit = 5; // cantidad por página
+  totalPages = 0;
+  isModalOpen = false;
+  customer: CustomerInterface | null = null
 
-    
-    constructor(
-    private apiService: ApiService
-    ){}
-    
-    async ngOnInit() {
-        await this.loadProducts();
-        await this.loadProductTypes();
-    }
-    
-    async loadProducts(): Promise<void> {
-        const res = await this.apiService.getProducts(this.page, this.limit);
-        this.products = res.data;
-        this.total = res.total;
-        this.totalPages = Math.ceil(this.total / this.limit);
-        // Creamos una lista con los números de página
-        this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
-    }
-    
-    async loadProductTypes(): Promise<void> {
-        const res = await this.apiService.getProductTypes();
-        this.productTypes = res;
-    }
-    
-    async filterByType(typeId: number): Promise<void> {
-        this.selectedTypeId = typeId;
-        const res = await this.apiService.getAllProductByProductType(typeId, this.page, this.limit);
-        this.products = res.data;
-        this.total = res.total;
-        this.totalPages = Math.ceil(this.total / this.limit);
-        // Creamos una lista con los números de página
-        this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
-    }
-    
-    prevPage() {
-        if (this.page > 1) {
-          this.page--;
-          this.loadProducts();
-        }
-    }
-    nextPage() {
-        if (this.page < this.totalPages) {
-          this.page++;
-          this.loadProducts();
-        }
-    }
-    
-    toggleMenu() {
-        this.menuOpen = !this.menuOpen;
-    }
-   
-  abrirModal() {
-    this.modalAbierto = true;
+  constructor(private apiService: ApiService) {}
+
+  async ngOnInit() {
+    await this.loadSales()
   }
 
-  cerrarModal() {
-    this.modalAbierto = false;
+  trackById = (_: number, item: SaleInterface) => item.id;
+
+  async loadSales(): Promise<void> {;
+    this.totalPages = Math.ceil(this.total / this.limit);
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  prevPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.loadSales();
+    }
+  }
+  nextPage() {
+    if (this.page < this.totalPages) {
+      this.page++;
+      this.loadSales();
+    }
+  }
+
+  openModal(customer: CustomerInterface): void {
+    console.log(customer)
+    this.customer = customer;
+    this.isModalOpen = true;
+    console.log(this.isModalOpen)
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
+    this.customer = null;
   }
 
 
