@@ -49,6 +49,12 @@ export class HomeComponent implements OnInit {
   }
 
   async filterByType(typeId: number): Promise<void> {
+    // En caso de que se vuelva a seleccionar el mismo tipo de producto, se mostraran todos los productos
+    if(this.selectedTypeId === typeId){
+      this.loadProducts()
+      this.selectedTypeId = null
+      return
+    }
     this.selectedTypeId = typeId;
     const res = await this.apiService.getAllProductByProductType(typeId, this.page, this.limit);
     this.products = res.data;
