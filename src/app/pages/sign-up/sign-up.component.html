@@ -1,6 +1,6 @@
 <div class="signup-container">
   <div class="signup-card">
-    <h2 class="title">Sign Up</h2>
+    <h2 class="title">Registrarse</h2>
 
     <form [formGroup]="signUpForm" (ngSubmit)="getDataSignUp()">
 
@@ -9,14 +9,14 @@
         <div class="form-group">
           <input type="text" id="firstName" placeholder="First Name" formControlName="firstName" required>
           @if (signUpForm.get('firstName')?.invalid && signUpForm.get('firstName')?.touched) {
-            <small class="error-msg">Complete first name</small>
+            <small class="error-msg">Completar nombre</small>
           }
         </div>
 
         <div class="form-group">
           <input type="text" id="lastName" placeholder="Last Name" formControlName="lastName" required>
           @if (signUpForm.get('lastName')?.invalid && signUpForm.get('lastName')?.touched) {
-            <small class="error-msg">Complete last name</small>
+            <small class="error-msg">Completar apellido</small>
           }
         </div>
       </div>
@@ -25,7 +25,7 @@
       <div class="form-group">
         <input type="text" id="phone" placeholder="Phone" formControlName="phone">
         @if (signUpForm.get('phone')?.invalid && signUpForm.get('phone')?.touched) {
-          <small class="error-msg">Invalid phone number</small>
+          <small class="error-msg">Número de telefono invalido</small>
         }
       </div>
 
@@ -33,7 +33,7 @@
       <div class="form-group">
         <input type="email" id="email" placeholder="Email" formControlName="email" required>
         @if (signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched) {
-          <small class="error-msg">Invalid email address</small>
+          <small class="error-msg">Correo electronico invalido</small>
         }
       </div>
 
@@ -41,16 +41,16 @@
       <div class="form-group">
         <input type="password" id="password" placeholder="Password" formControlName="password" required>
         @if (signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched) {
-          <small class="error-msg">The password must have more than 5 characters</small>
+          <small class="error-msg">La contraseña debe tener al menos 5 caracteres</small>
         }
       </div>
 
-      <button type="submit" class="btn">Sign Up</button>
+      <button type="submit" class="btn">Registrarse</button>
     </form>
 
     <div class="redirect-text">
-      Already have an account?
-      <button (click)="goToLogin()" class="link-btn">Login</button>
+      Ya tines una cuenta?
+      <button (click)="goToLogin()" class="link-btn">Iniciar Sesion</button>
     </div>
 
     @if (errorMsg) {

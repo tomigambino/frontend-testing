@@ -1,23 +1,23 @@
 <div class="login-container">
   <div class="login-card">
     <!-- Título -->
-    <h2 class="title">Login</h2>
+    <h2 class="title">Iniciar Sesion</h2>
 
     <!-- Formulario -->
     <form [formGroup]="loginForm" (ngSubmit)="getDataLogin()">
       <!-- Email -->
       <div class="form-group">
-        <input type="email" id="email" placeholder="Email" formControlName="email" required>
+        <input type="email" id="email" placeholder="Correo electronico" formControlName="email" required>
         @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
-          <small class="error-msg">Invalid email address</small>
+          <small class="error-msg">Correo electronico invalido</small>
         }
       </div>
 
       <!-- Password -->
       <div class="form-group">
-        <input type="password" id="password" placeholder="Password" formControlName="password" required>
+        <input type="password" id="password" placeholder="Contraseña" formControlName="password" required>
         @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
-          <small class="error-msg">The password must have more than 5 characters</small>
+          <small class="error-msg">La Contraseña debe tener al menos 5 caracteres</small>
         }
       </div>
 
@@ -27,8 +27,8 @@
 
     <!-- Link a registro -->
     <div class="signup-text">
-      Don’t have an account?
-      <button (click)="goToSignUp()" class="link-btn">Sign up</button>
+      No tienes una cuenta?
+      <button (click)="goToSignUp()" class="link-btn"> Registrate ahora</button>
     </div>
 
     <!-- Mensaje de error -->
