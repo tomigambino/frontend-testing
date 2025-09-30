@@ -1,0 +1,67 @@
+<div class="myproducts-container">
+  <section class="myproducts-content">
+    <div class="filter">
+      <div class="filter-wrapper">
+        <button (click)="toggleMenu()">
+          Filtrar por <span [class.rotated]="menuOpen">▶</span>
+        </button>
+
+      <div *ngIf="menuOpen" class="filter-options">
+        <button *ngFor="let type of productTypes" class="filter-btn" 
+        [class.active]="selectedTypeId === type.id"
+        (click)="filterByType(type.id)">
+          {{ type.name }}
+        </button>
+      </div>
+        <div class="actions">
+         <button (click)="abrirModal()">➕</button>
+        </div>
+
+<!-- Modal -->
+    <div id="modalProducto" class="modal" [class.activo]="modalAbierto">
+     <div class="modal-content">
+        <h2>Nuevo Producto</h2>
+
+        <!-- Por ahora solo un placeholder -->
+        <input class="name" type="text">
+        <select name="type-product">Tipo de Producto</select>
+        <input class="descrption" type="text">
+        <input class="price" type="text">
+
+        <div class="modal-actions">
+        <button type="button" (click)="cerrarModal()">Cerrar</button>
+        <button type="submit">Guardar</button>
+        </div>
+     </div>
+    </div>
+
+    </div>
+</div>
+    <section class="product-grid">
+
+      @for (item of products; track item.id) {
+        <div class="product-item">
+          <div class="product-card" [routerLink]="['/product', item.id]">
+            <img [src]="item.images?.[0]?.url" alt="{{ item.name }}">
+            <h3>{{ item.name }}</h3>
+            <p>{{ '$' + item.price }}</p>
+          </div>
+        </div>
+      }
+    </section>
+    <div class="pagination">
+    <button (click)="prevPage()" [disabled]="page === 1">
+      ‹ Anterior
+    </button>
+
+    <div class="page-info">
+      Página {{ page }} de {{ totalPages }}
+    </div>
+
+    <button (click)="nextPage()" [disabled]="page === totalPages">
+      Siguiente ›
+    </button>
+  </div>
+  </section>
+</div>
+

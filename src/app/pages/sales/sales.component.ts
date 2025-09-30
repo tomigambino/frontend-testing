@@ -50,18 +50,13 @@ export class SalesComponent implements OnInit {
     }
   }
   abrirModal() {
-    const modal = document.getElementById('modalCliente');
-    if (modal) {
-      modal.style.display = 'flex'; // lo mostramos centrado
-    }
-  }
+  document.getElementById('modalCliente')?.classList.add('activo');
+}
 
-  cerrarModal() {
-    const modal = document.getElementById('modalCliente');
-    if (modal) {
-    modal.style.display = 'none'; // lo ocultamos
-    }
-  }
+cerrarModal() {
+  document.getElementById('modalCliente')?.classList.remove('activo');
+}
+
 
 }
 

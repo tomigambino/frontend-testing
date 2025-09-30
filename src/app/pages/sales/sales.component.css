@@ -119,6 +119,7 @@
   align-items: center;
   gap: 16px;
   margin-top: 20px;
+  margin-bottom: 20px;
   font-family: var(--fuente-navbar);
 }
 
@@ -238,6 +239,18 @@
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+#modalCliente {
+  display: none;
+}
+
+/* Clase que lo muestra */
+#modalCliente.activo {
+  display: flex; /* o block, según necesites */
+  justify-content: center;
+  align-items: center;
+}
+
 
 /* Animación */
 @keyframes fadeIn {
