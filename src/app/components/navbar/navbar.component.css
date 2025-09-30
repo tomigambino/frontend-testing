@@ -231,6 +231,7 @@
   align-items: center;
   padding: 1rem;
   border-top: 1px solid var(--shadow);
+  font-family: var(--fuente-navbar);
 }
 
 .cart-pay .checkout-btn { 
@@ -240,6 +241,7 @@
   padding: 0.5rem 1rem;
   border-radius: 10px;
   cursor: pointer;
+  font-family: var(--fuente-navbar);
 }
 
 .close-cart {

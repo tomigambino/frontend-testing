@@ -145,26 +145,52 @@ span.rotated {
   transform: rotate(90deg);
 }
 
+.filter-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
 .filter-options {
-  list-style: none;
-  padding: 0;
-  margin: 5px 0;
+  position: absolute;
+  top: 100%; /* debajo del botón */
+  left: 0;
+  background: white;
   border: 1px solid #ccc;
-  width: 150px;
-  background: var(--background-navbar);
-  font-family: var(--fuente-navbar);
-}
-
-.filter-options li {
-  padding: 10px;
-  cursor: pointer;
-}
-
-.filter-options li:hover {
-  background: #f0f0f0;
-}
-
-.filter{
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  padding: 8px;
+  margin-top: 4px;
+  z-index: 10;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 160px;
+}
+
+.filter-btn {
+  width: 100%;
+  background: var(--background-navbar);
+  color: var(--color-fount);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: var(--fuente-navbar);
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.filter-btn:hover {
+  background: var(--boton);
+  color: var(--background-color);
+  transform: translateY(-2px);
+}
+
+.filter {
+  display: flex;
+  justify-content: flex-end; 
+  position: relative;        
+  margin-bottom: 1rem;  
+  padding-right: 4rem;     
 }
