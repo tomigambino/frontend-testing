@@ -38,7 +38,7 @@ export class SignUpComponent {
   async getDataSignUp() {
     if (this.signUpForm.invalid) {
       this.signUpForm.markAllAsTouched();
-      this.errorMsg = 'Incomplete or incorrect information';
+      this.errorMsg = 'Información incompleta';
       return;
     }
 
@@ -48,7 +48,7 @@ export class SignUpComponent {
       await this.router.navigate(['/login']);
     } catch (error) {
       console.error("Algo salió mal", error);
-      this.errorMsg = 'Error during registration';
+      this.errorMsg = 'Algo salió mal';
     }
   }
 }

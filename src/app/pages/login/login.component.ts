@@ -41,14 +41,14 @@ export class LoginComponent {
   async getDataLogin() {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched(); // Marca todos los campos como tocados para mostrar errores de validación
-      this.errorMsg = 'Incomplete or incorrect information';
+      this.errorMsg = 'La contraseña es incorrecta. Inténtalo de nuevo.';
     }
     try {
       const { email, password } = this.loginForm.value; // Obtiene los valores del formulario
       await this.authService.login(email, password); // Llama al servicio para iniciar sesión
       await this.router.navigate(['/home']); // Navega a home después del inicio de sesión exitoso
     } catch (e) {
-      this.errorMsg = 'Incomplete or incorrect information';
+      this.errorMsg = 'La contraseña es incorrecta. Inténtalo de nuevo.';
       console.error(e);
     }
   }

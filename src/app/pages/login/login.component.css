@@ -47,8 +47,8 @@ input {
   border-radius: 0.6rem;
   font-family: var(--fuente-navbar);
   font-size: 1.08rem;
-  border: none;
-  transition: box-shadow 0.3s ease-in-out;
+  border: 2px solid grey;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   margin-bottom: 0.5rem;
 }
 
@@ -69,24 +69,24 @@ input:focus {
 
 /*---------------------- Mensajes de Error ----------------------*/
 .error-msg {
-  color: rgb(224, 64, 64);
+  color: red;
   font-family: var(--fuente-navbar);
-  margin-top: 0.2rem;
   font-size: 0.85rem;
-  display: block;
+  margin-top: 0.2rem;
 }
 
+/*---------------------- Alertas ----------------------*/
 .alert {
   margin-top: 2rem;
   color: white;
   font-family: var(--fuente-navbar);
   border-radius: 1.25rem;
   padding: 1rem 1.5rem;
-  box-shadow: 0 0.3rem 0.8rem rgba(255, 0, 0, 0.1);
+  box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.1);
 }
 
 .alert-danger {
-  background: linear-gradient(to right, red, rgb(246, 52, 52));
+  background: linear-gradient(to right, rgb(210, 31, 31), rgb(165, 7, 7));
 }
 
 /*---------------------- Botón Login ----------------------*/
