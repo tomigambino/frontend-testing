@@ -52,13 +52,13 @@ input {
   font-family: var(--fuente-navbar);
   font-size: 1rem;
   box-shadow: inset 0 0 0 var(--rojo);
-  border: none;
-  transition: box-shadow 0.3s ease-in-out;
+  border: 2px solid grey;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   margin-bottom: 0.5rem;
 }
 
 input:hover {
-  box-shadow: 0rem 0.25rem 0.625rem rgba(255, 255, 255, 0.3);
+  box-shadow: 0rem 0.25rem 0.625rem  rgba(0, 0, 0, 0.3);
 }
 
 input:focus {
@@ -76,7 +76,7 @@ input:focus {
 
 /*---------------------- Mensajes de Error ----------------------*/
 .error-msg {
-  color: rgb(224, 64, 64);
+  color: red;
   font-family: var(--fuente-navbar);
   font-size: 0.85rem;
   margin-top: 0.2rem;
@@ -85,7 +85,7 @@ input:focus {
 /*---------------------- Alertas ----------------------*/
 .alert {
   margin-top: 2rem;
-  color: rgb(224, 64, 64);
+  color: white;
   font-family: var(--fuente-navbar);
   border-radius: 1.25rem;
   padding: 1rem 1.5rem;
@@ -93,7 +93,7 @@ input:focus {
 }
 
 .alert-danger {
-  background: linear-gradient(to right, red, rgb(246, 52, 52));
+  background: linear-gradient(to right, rgb(210, 31, 31), rgb(165, 7, 7));
 }
 
 /*---------------------- Botón principal ----------------------*/
