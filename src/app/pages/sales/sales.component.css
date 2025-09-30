@@ -105,6 +105,7 @@
 .btnVerDetalle {
   background-color: var(--boton);
   color: var(--background-color);
+  cursor: pointer;
 }
 
 .btnEliminar {
@@ -148,3 +149,98 @@
   color: #333;
 }
 
+/* Fondo oscuro semitransparente */
+.modalCliente {
+  display: none; /* oculto por defecto */
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  font-family: var(--fuente-navbar);
+}
+
+/* Caja del modal */
+.modal-content {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  position: relative;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Botón de cierre (X) */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--boton);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.close-btn:hover {
+  color: var(--rojo);
+}
+
+/* Título */
+.modal-content h3 {
+  margin-top: 0px;
+  margin-bottom: 16px;
+  color: var(--azul);
+  font-size: 1.3rem;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding-bottom: 8px;
+}
+
+/* Info del cliente */
+.clienteInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.clienteDato {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--texto);
+  font-size: 1rem;
+}
+
+.clienteDato i {
+  color: var(--boton);
+  font-size: 1.1rem;
+}
+
+/* Efecto al pasar el cursor */
+.btnVerDetalle:hover,
+.btnEliminar:hover {
+  transform: scale(1.08); /* se agranda un poco */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* sombra para resaltar */
+}
+
+.btnVerDetalle,
+.btnEliminar {
+  display: inline-block;
+  margin: 0 4px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

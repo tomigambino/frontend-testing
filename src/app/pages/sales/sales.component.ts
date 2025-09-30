@@ -49,5 +49,19 @@ export class SalesComponent implements OnInit {
       this.loadSales();
     }
   }
+  abrirModal() {
+    const modal = document.getElementById('modalCliente');
+    if (modal) {
+      modal.style.display = 'flex'; // lo mostramos centrado
+    }
+  }
+
+  cerrarModal() {
+    const modal = document.getElementById('modalCliente');
+    if (modal) {
+    modal.style.display = 'none'; // lo ocultamos
+    }
+  }
+
 }
 

@@ -63,7 +63,7 @@
 
           <!-- Acciones -->
           <td class="acciones">
-            <a class="btnVerDetalle" title="Ver detalle">
+            <a class="btnVerDetalle" (click)="abrirModal()" title="Ver detalle">
               <i class="fas fa-eye"></i>
             </a>
             <a class="btnEliminar" href="#" title="Eliminar">
@@ -74,6 +74,33 @@
       }
     </tbody>
   </table>
+
+  <!-- Modal emergente -->
+  <div class="modalCliente" id="modalCliente">  
+    <div class="modal-content">
+        <h3>Información del Cliente</h3>
+        <span class="close-btn" (click)="cerrarModal()">&times;</span>
+      <div class="clienteInfo">
+       <div class="clienteDato">
+         <i class="fas fa-user"></i>
+         <span>Juan Pérez</span>
+       </div>
+        <div class="clienteDato">
+          <i class="fas fa-envelope"></i>
+         <span>juanperez@email.com</span>
+       </div>
+        <div class="clienteDato">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Calle Falsa 123, Córdoba</span>
+        </div>
+        <div class="clienteDato">
+          <i class="fas fa-phone"></i>
+          <span>+54 9 351 555 5555</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <div class="pagination">
     <button (click)="prevPage()" [disabled]="page === 1">
