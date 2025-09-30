@@ -52,16 +52,7 @@ export class SalesComponent implements OnInit {
       this.loadSales();
     }
   }
-<<<<<<< HEAD
-  abrirModal() {
-  document.getElementById('modalCliente')?.classList.add('activo');
-}
 
-cerrarModal() {
-  document.getElementById('modalCliente')?.classList.remove('activo');
-}
-
-=======
   openModal(customer: CustomerInterface): void {
     console.log(customer)
     this.customer = customer;
@@ -73,7 +64,6 @@ cerrarModal() {
     this.isModalOpen = false;
     this.customer = null;
   }
->>>>>>> e47e7e01b7c584319c067e22946299fd51173da4
 
 }
 
