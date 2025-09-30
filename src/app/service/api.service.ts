@@ -110,9 +110,21 @@ export class ApiService{
       return res.data;
     }
 
-    async getAllProductByProductType(productTypeId: number){
+    async getProductTypes(){
       try{
-        const response = await axiosService.get(`/producto/tipo/${productTypeId}`)
+        const response = await axiosService.get(`/tipoProducto`)
+        return response.data;
+      }catch (error){
+        console.error('Error find product types:', error);
+        throw error;
+      }
+    }
+
+    async getAllProductByProductType(productTypeId: number, page: number, limit: number): Promise<PaginatedProducts>{
+      try{
+        const response = await axiosService.get(`/producto/tipo/${productTypeId}`, {
+          params: { page, limit }
+        });
         return response.data;
       }catch (error){
         console.error('Error find products by product type:', error);

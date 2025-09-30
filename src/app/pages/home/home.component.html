@@ -7,8 +7,10 @@
         </button>
 
       <div *ngIf="menuOpen" class="filter-options">
-        <button *ngFor="let type of productTypes" class="filter-btn">
-          {{ type }}
+        <button *ngFor="let type of productTypes" class="filter-btn" 
+        [class.active]="selectedTypeId === type.id"
+        (click)="filterByType(type.id)">
+          {{ type.name }}
         </button>
       </div>
     </div>
