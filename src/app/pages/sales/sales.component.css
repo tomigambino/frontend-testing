@@ -244,3 +244,42 @@
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Cubre toda la pantalla */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Caja blanca centrada */
+.modal-box {
+  position: relative;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 1rem;
+  width: 300px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+}
+
+/* Botón de cerrar (la “X”) */
+.modal-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+/* Espaciado interno del cuerpo */
+.modal-body p {
+  margin: 0.5rem 0;
+  font-family: var(--fuente-navbar);
+}
