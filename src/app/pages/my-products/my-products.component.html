@@ -5,14 +5,25 @@
     </a>
     <h2 class="pageTitle">Productos</h2>
   </div>
-  <div class="action-buttons">
-    <button class="filter-btn">
-      Filtrar por <span>▶</span>
+<div class="action-buttons">
+  <div class="filter-wrapper">
+    <button (click)="toggleMenu()" class="filter-btn">
+      Filtrar por <span [class.rotated]="menuOpen">▶</span>
     </button>
-    <a class="btn-create" title="Create">
-      <i class="fa-solid fa-square-plus fa-xl" style="color: #ffffff;"></i>
-    </a>
+
+    <div *ngIf="menuOpen" class="filter-options">
+      <button *ngFor="let type of productTypes" class="filter-btn"
+              [class.active]="selectedTypeId === type.id"
+              (click)="filterByType(type.id)">
+        {{ type.name }}
+      </button>
+    </div>
   </div>
+
+  <a class="btn-create" title="Create">
+    <i class="fa-solid fa-square-plus fa-xl" style="color: #ffffff;"></i>
+  </a>
+</div>
   <table id="tablaProductos">
     <thead>
       <tr>
@@ -25,12 +36,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>*Img*</td>
-        <td>Pelota</td>
-        <td>Pelota de futbol</td>
-        <td>$8000</td>
+      @for (product of products; track product.id){
+              <tr>
+        <td> {{product.id}} </td>
+        <td>
+          <img [src]="product.images?.[0]?.url" alt="{{ product.name }}" width="50">
+        </td>
+        <td> {{ product.name }} </td>
+        <td> {{ product.description }} </td>
+        <td> {{ '$' + product.price }} </td>
         <td>
           <a class="btnEditar" title="Editar">
             <i class="fa-duotone fa-solid fa-pen-to-square" style="--fa-primary-color: #ffffff; --fa-secondary-color: #ffffff;"></i>
@@ -40,6 +54,8 @@
           </a>
         </td>
       </tr>
+      }
+
     </tbody>
 </table>
 

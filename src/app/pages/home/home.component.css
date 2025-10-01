@@ -97,6 +97,9 @@ app-sidebar {
   cursor: pointer;
   font-size: 0.95rem;
   transition: background-color 0.2s, transform 0.1s;
+  align-items: center;   
+  justify-content: center; 
+  text-align: center;    
 }
 
 .pagination button:hover:not(:disabled) {

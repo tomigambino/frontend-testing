@@ -22,23 +22,19 @@
           <div class="product-card" [routerLink]="['/product', item.id]">
             <img [src]="item.images?.[0]?.url" alt="{{ item.name }}">
             <h3>{{ item.name }}</h3>
-            <p>{{ '$' + item.price }}</p>
+            <p>{{ '$' + ' ' + item.price }}</p>
           </div>
         </div>
       }
     </section>
     <div class="pagination">
-    <button (click)="prevPage()" [disabled]="page === 1">
-      ‹ Anterior
-    </button>
+    <button (click)="prevPage()" [disabled]="page === 1">‹ Anterior</button>
 
     <div class="page-info">
       Página {{ page }} de {{ totalPages }}
     </div>
 
-    <button (click)="nextPage()" [disabled]="page === totalPages">
-      Siguiente ›
-    </button>
+    <button (click)="nextPage()" [disabled]="page === totalPages">Siguiente ›</button>
   </div>
   </section>
 </div>
