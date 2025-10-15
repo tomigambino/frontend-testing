@@ -27,6 +27,9 @@ export class MyProductComponent implements OnInit {
   products: ProductInterface[] = []
   productTypes: ProductTypeInterface[] = [];
   selectedTypeId: number | null = null;
+  selectedFiles: File[] = [];
+  http: any;
+  
 
   constructor(private apiService: ApiService) {}
 
@@ -67,6 +70,23 @@ export class MyProductComponent implements OnInit {
     // Creamos una lista con los números de página
     this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
   } 
+
+
+  
+
+  onFileSelected(event: any) {
+    this.selectedFiles = Array.from(event.target.files);
+  }
+
+  onSubmit() {
+    const formData = new FormData();
+    this.selectedFiles.forEach(file => {
+      formData.append('images', file); // mismo campo 'images' para todas
+    });
+    this.http.post('http://localhost:3000/products', FormData)
+      .subscribe((res: any) => console.log(res));
+  }
+
 
   prevPage() {
     if (this.page > 1) {
