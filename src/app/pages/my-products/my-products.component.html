@@ -20,9 +20,37 @@
       </div>
     </div>
 
-    <a class="btn-create" title="Create">
+    <a class="btn-create" (click)="showMenu()" title="Create">
       <i class="fa-solid fa-square-plus fa-xl" style="color: #ffffff;"></i>
     </a>
+    <div *ngIf="openMenu" class="add-product">
+
+      <div class="title-add-product">
+        <h2>AGREGAR PRODUCTO</h2>
+      </div>
+      <div class="body-add-product">
+        <div class="product-item">
+          <input type="text" placeholder="Nombre del producto">
+        </div>
+        <div class="product-item">
+          <input type="text" placeholder="Descripción del producto">
+        </div>
+        <div class="product-item">
+          <input type="text" placeholder="Precio del producto">
+        </div>
+        <div class="product-item">
+          <input type="file" (change)="onFileSelected($event)" placeholder="Imagen del producto">
+        </div>
+      </div>
+      <div class="buttons">
+        <div class="accept-button">
+          <button>Aceptar</button>
+        </div>
+        <div class="cancel-button">
+          <button>Cancelar</button>
+        </div>
+      </div>
+    </div>
   </div>
   <table id="tablaProductos">
     <thead>
@@ -46,9 +74,17 @@
         <td> {{ product.description }} </td>
         <td> {{ '$' + product.price }} </td>
         <td>
-          <a class="btnEditar" title="Editar">
+          <a class="btnEditar" (click)="editProduct()" title="Editar">
             <i class="fa-duotone fa-solid fa-pen-to-square" style="--fa-primary-color: #ffffff; --fa-secondary-color: #ffffff;"></i>
           </a>
+          <div *ngIf="editMenu" class="editProduct">
+            <div class="product-img">
+
+            </div>
+            <div class="product-info">
+              
+            </div>
+          </div>
           <a class="btnEliminar" href="#" title="Eliminar">
             <i class="fas fa-trash"></i>
           </a>
@@ -60,34 +96,6 @@
   </table>
 </div>
 
-<div class="add-product">
-
-  <div class="title-add-product">
-    <h2>AGREGAR PRODUCTO</h2>
-  </div>
-  <div class="body-add-product">
-    <div class="product-item">
-      <input type="text" placeholder="Nombre del producto">
-    </div>
-    <div class="product-item">
-      <input type="text" placeholder="Descripción del producto">
-    </div>
-    <div class="product-item">
-      <input type="text" placeholder="Precio del producto">
-    </div>
-    <div class="product-item">
-      <input type="file" (change)="onFileSelected($event)" placeholder="Imagen del producto">
-    </div>
-  </div>
-  <div class="buttons">
-    <div class="accept-button">
-    <button>Aceptar</button>
-    </div>
-    <div class="cancel-button">
-    <button>Cancelar</button>
-    </div>
-  </div>
-</div>
 <div class="pagination">
   <button (click)="prevPage()" [disabled]="page === 1">
    ‹ Anterior

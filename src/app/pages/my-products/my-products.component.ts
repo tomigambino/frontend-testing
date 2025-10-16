@@ -23,6 +23,8 @@ export class MyProductComponent implements OnInit {
   limit = 5; // cantidad por página
   totalPages = 0;
   menuOpen = false;
+  openMenu = false;
+  editMenu = false;
   customer: CustomerInterface | null = null
   products: ProductInterface[] = []
   productTypes: ProductTypeInterface[] = [];
@@ -105,5 +107,12 @@ export class MyProductComponent implements OnInit {
     this.menuOpen = !this.menuOpen;
   }
 
+  showMenu() {
+    this.openMenu = !this.openMenu
+  }
+
+  editProduct() {
+    this.editMenu = !this.editMenu
+  }
 
 }
