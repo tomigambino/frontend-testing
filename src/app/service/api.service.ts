@@ -33,7 +33,7 @@ export class ApiService{
 
     async generatePay(saleId: number){
       try{
-        const response = await axiosService.get(`/pago/${saleId}`)
+        const response = await axiosPrivate.get(`/pago/${saleId}`)
         return response.data;
       }catch(error){
         console.error('Error generating payment:', error);
