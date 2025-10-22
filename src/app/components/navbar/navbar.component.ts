@@ -15,9 +15,7 @@ import { AuthService } from '../../service/auth.service';
   styleUrls: ['./navbar.component.css'] // corregido: plural
 })
 export class NavbarComponent implements OnInit {
-
-  // CREO QUE HAY QUE CAMBIAR LO DE ITEM PORQUE NO ESTAMOS ACTUALIZANDO EL DETALLE DEL PRODUCTO, SOLO ACTUALIZAMOS LA VISTA
-
+  
   cartItems: CartItem[] = [];
   cartCount = 0;
   total = 0;
@@ -91,5 +89,10 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+  }
+
+  // Este método se implementa para mantener privado a authService y poder acceder desde el HTML
+  isOwner(): boolean {
+    return this.authService.isOwner();
   }
 }

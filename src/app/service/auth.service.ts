@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { axiosService } from "./axiosClient";
 import { Router } from "@angular/router";
 import { axiosPrivate } from "./axiosClientPrivate";
+import { Role } from "./role.enum";
 
 
 @Injectable({ providedIn: 'root' })
@@ -10,16 +11,17 @@ export class AuthService {
     constructor(private router: Router) { }
 
     // Inicia sesión con email y contraseña y guarda el token de acceso
-      async login(email: string, password: string) {
-        try {
-          const data = { email, password }
-          const response = await axiosService.post('/auth/login', data)
-          localStorage.setItem('accessToken', response.data.accessToken) // Guarda el token en localStorage
-          return;
-        } catch (error) {
-          throw new Error('Datos incorrectos o usuario no registrado');
-        }
-      }
+    async login(email: string, password: string) {
+    try {
+        const data = { email, password }
+        const response = await axiosService.post('/auth/login', data)
+        localStorage.setItem('accessToken', response.data.accessToken) // Guarda el token en localStorage
+        localStorage.setItem('roleId', response.data.roleId) // Guarda el roleId en localStorage
+        return;
+    } catch (error) {
+        throw new Error('Datos incorrectos o usuario no registrado');
+    }
+    }
     
     // Registra un nuevo usuario con los datos proporcionados
     async signUp(firstName: string, lastName: string, phone: string, email: string, password: string) {
@@ -81,5 +83,14 @@ export class AuthService {
             console.error('Error fetching customer ID:', error);
             return null;
         }
+    }
+
+    getUserRole(): Role | null {
+        return localStorage.getItem('roleId') as Role | null;
+    }
+
+    isOwner(): boolean {
+        const role = this.getUserRole();
+        return role === Role.Owner;
     }
 }

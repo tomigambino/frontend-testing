@@ -3,8 +3,10 @@
     <img src="assets/icons/LogoPadelPro.png" alt="Logo" class="logo-img">
     <div class="navbar-links">
       <a class="nav-link" routerLink="/home">INICIO</a>
+      @if (isOwner()) {
       <a class="nav-link" routerLink="/sales">MIS VENTAS</a>
       <a class="nav-link" routerLink="/my-products">MIS PRODUCTOS</a>
+      }
     </div>
   </div>
 

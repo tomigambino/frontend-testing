@@ -5,6 +5,7 @@ import { SaleInterface } from "../interfaces/sale-interface";
 import { AuthService } from "./auth.service";
 import { PaginatedSales } from "../interfaces/paginatedSales-interface";
 import { PaginatedProducts } from "../interfaces/paginatedProducts";
+import { axiosPrivate } from "./axiosClientPrivate";
 
 @Injectable({
   providedIn: 'root' // Indica que el servicio se proveerá en la raíz de la aplicación.
@@ -97,7 +98,7 @@ export class ApiService{
     }
 
     async getSales(page: number, limit: number): Promise<PaginatedSales> {
-      const res = await axiosService.get<PaginatedSales>('/venta', {
+      const res = await axiosPrivate.get<PaginatedSales>('/venta', {
         params: { page, limit }
       });
       return res.data;
