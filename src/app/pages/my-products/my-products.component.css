@@ -274,11 +274,14 @@
 
 .buttons{
   display: flex;
+  justify-content: center;   /* centra horizontalmente */
+  align-items: center;       /* centra verticalmente */
+  gap: 1rem;                 /* espacio entre Aceptar y Cancelar */
   padding-bottom: 2rem;
 }
 
 .accept-button{
-  padding-right: 3rem;
+  padding-right: 0;
 }
 
 .accept-button button{
@@ -311,4 +314,28 @@
   height: 100%;
   background: rgba(0,0,0,0.6);
   z-index: 999; /* debajo del panel */
+}
+
+/* Labels dentro del modal de agregar producto */
+.add-product .product-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.add-product .product-item label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #333; /* o usa var(--color-fount) si tenés */
+}
+
+.add-product .product-item input,
+.add-product .product-item select {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  height: 2rem;
+  width: 16rem;
+  padding: 0 0.5rem;
+  font-family: var(--fuente-navbar);
 }

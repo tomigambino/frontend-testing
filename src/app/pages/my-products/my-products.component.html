@@ -5,6 +5,7 @@
     </a>
     <h2 class="pageTitle">Productos</h2>
   </div>
+
   <div class="action-buttons">
     <div class="filter-wrapper">
       <button (click)="toggleMenu()" class="filter-btn">
@@ -13,8 +14,8 @@
 
       <div *ngIf="menuOpen" class="filter-options">
         <button *ngFor="let type of productTypes" class="filter-btn"
-              [class.active]="selectedTypeId === type.id"
-              (click)="filterByType(type.id)">
+                [class.active]="selectedTypeId === type.id"
+                (click)="filterByType(type.id)">
           {{ type.name }}
         </button>
       </div>
@@ -23,36 +24,69 @@
     <a class="btn-create" (click)="addProduct()" title="Create">
       <i class="fa-solid fa-square-plus fa-xl" style="color: #ffffff;"></i>
     </a>
-    <div class="overlay" *ngIf="addMenu" (click)="cerrarAddProduct()"></div>
-    <div *ngIf="addMenu" class="add-product">
 
+    <div class="overlay" *ngIf="addMenu" (click)="cerrarAddProduct()"></div>
+
+    <!-- Agregar Producto -->
+    <div *ngIf="addMenu" class="add-product">
       <div class="title-add-product">
         <h2>AGREGAR PRODUCTO</h2>
       </div>
-      <div class="body-add-product">
-        <div class="product-item">
-          <input type="text" placeholder="Nombre del producto">
+      <form (ngSubmit)="onSubmit()">
+        <div class="body-add-product">
+          <div class="product-item">
+            <label for="name">Nombre del producto</label>
+            <input type="text" placeholder="Nombre del producto"
+                  [(ngModel)]="newProduct.name" name="name" required>
+          </div>
+
+          <div class="product-item">
+            <label for="description">Descripción del producto</label>
+            <input type="text" placeholder="Descripción del producto"
+                  [(ngModel)]="newProduct.description" name="description" required>
+          </div>
+
+          <div class="product-item">
+            <label for="price">Precio del producto</label>
+            <input type="number" placeholder="Precio del producto"
+                  [(ngModel)]="newProduct.price" name="price" min="0" required>
+          </div>
+
+          <div class="product-item">
+            <label for="stock">Stock inicial</label>
+            <input type="number" placeholder="Stock inicial"
+                  [(ngModel)]="newProduct.stock" name="stock" min="0" required>
+          </div>
+
+          <div class="product-item">
+            <label for="productType">Tipo de producto</label>
+            <select [(ngModel)]="newProduct.productType.id" name="productType" required>
+              <option [value]="''">Selecciona tipo de producto</option>
+              <option *ngFor="let type of productTypes" [value]="type.id">
+                {{ type.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="product-item">
+            <label for="images">Imágenes</label>
+            <input type="file" (change)="onFileSelected($event)" multiple>
+          </div>
         </div>
-        <div class="product-item">
-          <input type="text" placeholder="Descripción del producto">
+
+        <div class="buttons">
+          <div class="accept-button">
+            <!-- Solo submit, sin (click) duplicado -->
+            <button type="submit">Aceptar</button>
+          </div>
+          <div class="cancel-button">
+            <button type="button" (click)="cerrarAddProduct()">Cancelar</button>
+          </div>
         </div>
-        <div class="product-item">
-          <input type="text" placeholder="Precio del producto">
-        </div>
-        <div class="product-item">
-          <input type="file" (change)="onFileSelected($event)" placeholder="Imagen del producto">
-        </div>
-      </div>
-      <div class="buttons">
-        <div class="accept-button">
-          <button>Aceptar</button>
-        </div>
-        <div class="cancel-button">
-          <button (click)="cerrarAddProduct()">Cancelar</button>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
+
   <table id="tablaProductos">
     <thead>
       <tr>
@@ -65,66 +99,58 @@
       </tr>
     </thead>
     <tbody>
-      @for (product of products; track product.id){
-              <tr>
-        <td> {{product.id}} </td>
-        <td>
-          <img [src]="product.images?.[0]?.url" alt="{{ product.name }}" width="50">
-        </td>
-        <td> {{ product.name }} </td>
-        <td> {{ product.description }} </td>
-        <td> {{ '$' + product.price }} </td>
-        <td>
-          <a class="btnEditar" (click)="editProduct()" title="Editar">
-            <i class="fa-duotone fa-solid fa-pen-to-square" style="--fa-primary-color: #ffffff; --fa-secondary-color: #ffffff;"></i>
-          </a>
-          <div class="overlayy" *ngIf="editMenu" (click)="cerrarEditProduct()"></div>
-          <div *ngIf="editMenu" class="editProduct">
-            <div class="up">
-              <div class="product-img">
-                <img src="" alt="">
+      @for (product of products; track product.id) {
+        <tr>
+          <td>{{ product.id }}</td>
+          <td>
+            <img [src]="product.images?.[0]?.url" alt="{{ product.name }}" width="50">
+          </td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ '$' + product.price }}</td>
+          <td>
+            <a class="btnEditar" (click)="editProduct()" title="Editar">
+              <i class="fa-duotone fa-solid fa-pen-to-square"
+                 style="--fa-primary-color: #ffffff; --fa-secondary-color: #ffffff;"></i>
+            </a>
+            <div class="overlayy" *ngIf="editMenu" (click)="cerrarEditProduct()"></div>
+            <div *ngIf="editMenu" class="editProduct">
+              <div class="up">
+                <div class="product-img">
+                  <img src="" alt="">
+                </div>
+                <div class="product-info">
+                  <div class="product-item">
+                    <input type="text" placeholder="Nombre del producto">
+                  </div>
+                  <div class="product-item">
+                    <input type="text" placeholder="Descripción del producto">
+                  </div>
+                  <div class="product-item">
+                    <input type="text" placeholder="Precio del producto">
+                  </div>
+                  <div class="product-item">
+                    <input type="file" (change)="onFileSelected($event)" placeholder="Imagen del producto">
+                  </div>
+                </div>
               </div>
-              <div class="product-info">
-                <div class="product-item">
-                  <input type="text" placeholder="Nombre del producto">
-                </div>
-                <div class="product-item">
-                  <input type="text" placeholder="Descripción del producto">
-                </div>
-                <div class="product-item">
-                 <input type="text" placeholder="Precio del producto">
-                </div>
-                <div class="product-item">
-                  <input type="file" (change)="onFileSelected($event)" placeholder="Imagen del producto">
-                </div>
+              <div class="down">
+                <button class="acp-button">Aceptar</button>
+                <button class="cnl-button" (click)="cerrarEditProduct()">Cancelar</button>
               </div>
             </div>
-            <div class="down">
-              <button class="acp-button">Aceptar</button>
-              <button class="cnl-button" (click)="cerrarEditProduct()">Cancelar</button>
-            </div>
-          </div>
-          <a class="btnEliminar" href="#" title="Eliminar">
-            <i class="fas fa-trash"></i>
-          </a>
-        </td>
-      </tr>
+            <a class="btnEliminar" href="#" title="Eliminar">
+              <i class="fas fa-trash"></i>
+            </a>
+          </td>
+        </tr>
       }
-
     </tbody>
   </table>
 </div>
 
 <div class="pagination">
-  <button (click)="prevPage()" [disabled]="page === 1">
-   ‹ Anterior
-  </button>
-
-  <div class="page-info">
-    Página {{ page }} de {{ totalPages }}
-  </div>
-
-  <button (click)="nextPage()" [disabled]="page === totalPages">
-    Siguiente ›
-  </button>
+  <button (click)="prevPage()" [disabled]="page === 1">‹ Anterior</button>
+  <div class="page-info">Página {{ page }} de {{ totalPages }}</div>
+  <button (click)="nextPage()" [disabled]="page === totalPages">Siguiente ›</button>
 </div>

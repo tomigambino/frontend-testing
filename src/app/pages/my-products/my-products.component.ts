@@ -31,7 +31,17 @@ export class MyProductComponent implements OnInit {
   selectedTypeId: number | null = null;
   selectedFiles: File[] = [];
   http: any;
-  
+  newProduct: ProductInterface = {
+  id: 0,
+  productType: { id: 0, name: '' }, // o solo el id si tu backend lo espera
+  name: '',
+  description: '',
+  price: 0,
+  stock: 0,
+  isActive: true,
+  images: []
+  };
+
 
   constructor(private apiService: ApiService) {}
 
@@ -73,21 +83,46 @@ export class MyProductComponent implements OnInit {
     this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
   } 
 
-
-  
-
   onFileSelected(event: any) {
     this.selectedFiles = Array.from(event.target.files);
   }
 
-  onSubmit() {
-    const formData = new FormData();
-    this.selectedFiles.forEach(file => {
-      formData.append('images', file); // mismo campo 'images' para todas
-    });
-    this.http.post('http://localhost:3000/products', FormData)
-      .subscribe((res: any) => console.log(res));
+  async onSubmit() {
+    const payload = {
+      name: this.newProduct.name,
+      description: this.newProduct.description,
+      price: this.newProduct.price,
+      stock: this.newProduct.stock,
+      isActive: true, // siempre activo
+      productTypeId: this.selectedTypeId 
+    };
+
+    console.log('Enviando producto:', payload);
+
+    try {
+      const res = await this.apiService.createProduct(payload);
+      console.log('Producto agregado:', res);
+
+      this.cerrarAddProduct();
+      await this.loadProducts();
+
+      // limpiar formulario
+      this.newProduct = {
+        id: 0,
+        productType: { id: 0, name: '' },
+        name: '',
+        description: '',
+        price: 0,
+        stock: 0,
+        isActive: true,
+        images: []
+      };
+      this.selectedTypeId = null;
+    } catch (err: any) {
+      console.error('Error al crear producto:', err?.response?.data || err);
+    }
   }
+
 
 
   prevPage() {

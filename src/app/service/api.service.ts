@@ -152,4 +152,16 @@ export class ApiService{
         throw error;
       }
     }
+
+  async createProduct(productData: any) {
+    try {
+      const response = await axiosPrivate.post('/producto', productData);
+      return response.data;
+    } catch (error) {
+      console.error('Error creating product:', error);
+      throw error;
+    }
+  }
+
+
 }
