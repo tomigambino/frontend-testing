@@ -153,15 +153,34 @@ export class ApiService{
       }
     }
 
-  async createProduct(productData: any) {
-    try {
-      const response = await axiosPrivate.post('/producto', productData);
-      return response.data;
-    } catch (error) {
-      console.error('Error creating product:', error);
-      throw error;
+    async createProduct(
+      name: string,
+      description: string,
+      price: number,
+      stock: number,
+      productTypeId: number
+    ): Promise<number> {
+      try {
+        // Armo el payload que espera tu backend
+        const payload = {
+          productTypeId,
+          name,
+          description,
+          price,
+          stock,
+          isActive: true, // siempre activo al crear
+        };
+
+        // Hago el POST al endpoint protegido
+        const response = await axiosPrivate.post('/producto', payload);
+
+        // Devuelvo el id del producto creado
+        return response.data.id;
+      } catch (error) {
+        console.error('Error creating product:', error);
+        throw error;
+      }
     }
-  }
 
 
 }

@@ -1,49 +1,60 @@
 import { Component, OnInit } from "@angular/core";
-import { AppComponent } from "../../app.component";
-import { ProductTypeInterface } from "../../interfaces/productType-interface";
-import { ProductInterface } from "../../interfaces/product-interface";
-import { ApiService } from "../../service/api.service";
 import { RouterModule } from '@angular/router';
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from "@angular/forms";
+
+import { ApiService } from "../../service/api.service";
+import { ProductInterface } from "../../interfaces/product-interface";
+import { ProductTypeInterface } from "../../interfaces/productType-interface";
 import { CustomerInterface } from "../../interfaces/customer-interface";
 import { SaleInterface } from "../../interfaces/sale-interface";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-
 
 @Component({
-    imports: [RouterModule, CommonModule, FormsModule],
-    selector: 'App-product',
-    templateUrl: './my-products.component.html',
-    styleUrls: ['./my-products.component.css']
+  selector: 'app-product',
+  standalone: true,
+  imports: [RouterModule, CommonModule, ReactiveFormsModule],
+  templateUrl: './my-products.component.html',
+  styleUrls: ['./my-products.component.css']
 })
 export class MyProductComponent implements OnInit {
+  // --- Listado y paginación ---
   total = 0;
   page = 1;
-  pages: number[] = []; // Array de páginas
-  limit = 5; // cantidad por página
+  limit = 5;
   totalPages = 0;
-  menuOpen = false;
-  addMenu = false;
-  editMenu = false;
-  customer: CustomerInterface | null = null
-  products: ProductInterface[] = []
+  pages: number[] = [];
+  products: ProductInterface[] = [];
   productTypes: ProductTypeInterface[] = [];
   selectedTypeId: number | null = null;
   selectedFiles: File[] = [];
+
+
+  // --- Estados UI ---
+  menuOpen = false;
+  addMenu = false;
+  editMenu = false;
+
+  // --- Otros ---
+  customer: CustomerInterface | null = null;
   http: any;
-  newProduct: ProductInterface = {
-  id: 0,
-  productType: { id: 0, name: '' }, // o solo el id si tu backend lo espera
-  name: '',
-  description: '',
-  price: 0,
-  stock: 0,
-  isActive: true,
-  images: []
-  };
 
+  // --- Formulario Reactivo ---
+  productForm: FormGroup;
+  successMsg = '';
+  errorMsg = '';
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private fb: FormBuilder
+  ) {
+    this.productForm = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      price: [0, [Validators.required, Validators.min(1)]],
+      stock: [0, [Validators.required, Validators.min(0)]],
+      productTypeId: [null, Validators.required]
+    });
+  }
 
   async ngOnInit() {
     await this.loadProducts();
@@ -52,85 +63,77 @@ export class MyProductComponent implements OnInit {
 
   trackById = (_: number, item: SaleInterface) => item.id;
 
-
+  // --- Cargar productos ---
   async loadProducts(): Promise<void> {
     const res = await this.apiService.getProducts(this.page, this.limit);
     this.products = res.data;
     this.total = res.total;
     this.totalPages = Math.ceil(this.total / this.limit);
-    // Creamos una lista con los números de página
     this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
+  // --- Cargar tipos de producto ---
   async loadProductTypes(): Promise<void> {
-    const res = await this.apiService.getProductTypes();
-    this.productTypes = res;
+    this.productTypes = await this.apiService.getProductTypes();
   }
 
+  // --- Filtrar por tipo ---
   async filterByType(typeId: number): Promise<void> {
-    // En caso de que se vuelva a seleccionar el mismo tipo de producto, se mostraran todos los productos
-    if(this.selectedTypeId === typeId){
-      this.loadProducts()
-      this.selectedTypeId = null
-      return
+    if (this.selectedTypeId === typeId) {
+      this.selectedTypeId = null;
+      await this.loadProducts();
+      return;
     }
     this.selectedTypeId = typeId;
     const res = await this.apiService.getAllProductByProductType(typeId, this.page, this.limit);
     this.products = res.data;
     this.total = res.total;
     this.totalPages = Math.ceil(this.total / this.limit);
-    // Creamos una lista con los números de página
     this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
-  } 
-
-  onFileSelected(event: any) {
-    this.selectedFiles = Array.from(event.target.files);
   }
 
+  // --- Crear producto ---
   async onSubmit() {
+    if (this.productForm.invalid) {
+      this.productForm.markAllAsTouched();
+      this.errorMsg = 'Información incompleta o incorrecta';
+      return;
+    }
+
     const payload = {
-      name: this.newProduct.name,
-      description: this.newProduct.description,
-      price: this.newProduct.price,
-      stock: this.newProduct.stock,
-      isActive: true, // siempre activo
-      productTypeId: this.selectedTypeId 
+      ...this.productForm.value,
+      isActive: true // siempre activo
     };
 
-    console.log('Enviando producto:', payload);
+    console.log('Payload enviado:', payload);
 
     try {
-      const res = await this.apiService.createProduct(payload);
-      console.log('Producto agregado:', res);
+      const { productTypeId, name, description, price, stock } = this.productForm.value;
+      const newProductId = await this.apiService.createProduct(productTypeId, name, description, price, stock );
 
-      this.cerrarAddProduct();
-      await this.loadProducts();
+      console.log('Producto creado con ID:', newProductId);
+      this.successMsg = 'Producto creado con éxito';
+      this.errorMsg = '';
 
-      // limpiar formulario
-      this.newProduct = {
-        id: 0,
-        productType: { id: 0, name: '' },
-        name: '',
-        description: '',
-        price: 0,
-        stock: 0,
-        isActive: true,
-        images: []
-      };
-      this.selectedTypeId = null;
-    } catch (err: any) {
-      console.error('Error al crear producto:', err?.response?.data || err);
+      setTimeout(async () => {
+        this.cerrarAddProduct();
+        await this.loadProducts();
+        this.productForm.reset({ price: 0, stock: 0 });
+      }, 1500);
+    } catch (err) {
+      console.error('Error al crear producto:', err);
+      this.errorMsg = 'Error al crear producto';
     }
   }
 
-
-
+  // --- Paginación ---
   prevPage() {
     if (this.page > 1) {
       this.page--;
       this.loadProducts();
     }
   }
+
   nextPage() {
     if (this.page < this.totalPages) {
       this.page++;
@@ -138,28 +141,15 @@ export class MyProductComponent implements OnInit {
     }
   }
 
-  toggleMenu() {
-    this.menuOpen = true
+  onFileSelected(event: any) {
+    this.selectedFiles = Array.from(event.target.files);
+    console.log('Archivos seleccionados:', this.selectedFiles);
   }
 
-  cerrarToggleMenu() {
-    this.menuOpen = false
-  }
-
-  addProduct() {
-    this.addMenu = true
-  }
-
-  cerrarAddProduct() {
-    this.addMenu = false
-  }
-
-  editProduct() {
-    this.editMenu = true
-  }
-
-  cerrarEditProduct() {
-    this.editMenu = false
-  }
-
+  // --- UI ---
+  toggleMenu() { this.menuOpen = !this.menuOpen; }
+  addProduct() { this.addMenu = true; }
+  cerrarAddProduct() { this.addMenu = false; this.productForm.reset({ price: 0, stock: 0, isActive: true }); }
+  editProduct() { this.editMenu = true; }
+  cerrarEditProduct() { this.editMenu = false; }
 }

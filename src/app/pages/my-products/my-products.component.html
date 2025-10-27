@@ -32,37 +32,39 @@
       <div class="title-add-product">
         <h2>AGREGAR PRODUCTO</h2>
       </div>
-      <form (ngSubmit)="onSubmit()">
+
+      <!-- Reactive Form -->
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
         <div class="body-add-product">
           <div class="product-item">
             <label for="name">Nombre del producto</label>
-            <input type="text" placeholder="Nombre del producto"
-                  [(ngModel)]="newProduct.name" name="name" required>
+            <input id="name" type="text" placeholder="Nombre del producto"
+                   formControlName="name">
           </div>
 
           <div class="product-item">
             <label for="description">Descripción del producto</label>
-            <input type="text" placeholder="Descripción del producto"
-                  [(ngModel)]="newProduct.description" name="description" required>
+            <input id="description" type="text" placeholder="Descripción del producto"
+                   formControlName="description">
           </div>
 
           <div class="product-item">
             <label for="price">Precio del producto</label>
-            <input type="number" placeholder="Precio del producto"
-                  [(ngModel)]="newProduct.price" name="price" min="0" required>
+            <input id="price" type="number" placeholder="Precio del producto"
+                   formControlName="price" min="0">
           </div>
 
           <div class="product-item">
             <label for="stock">Stock inicial</label>
-            <input type="number" placeholder="Stock inicial"
-                  [(ngModel)]="newProduct.stock" name="stock" min="0" required>
+            <input id="stock" type="number" placeholder="Stock inicial"
+                   formControlName="stock" min="0">
           </div>
 
           <div class="product-item">
             <label for="productType">Tipo de producto</label>
-            <select [(ngModel)]="newProduct.productType.id" name="productType" required>
-              <option [value]="''">Selecciona tipo de producto</option>
-              <option *ngFor="let type of productTypes" [value]="type.id">
+            <select id="productType" formControlName="productTypeId">
+              <option [ngValue]="null">Selecciona tipo de producto</option>
+              <option *ngFor="let type of productTypes" [ngValue]="type.id">
                 {{ type.name }}
               </option>
             </select>
@@ -70,13 +72,12 @@
 
           <div class="product-item">
             <label for="images">Imágenes</label>
-            <input type="file" (change)="onFileSelected($event)" multiple>
+            <input id="images" type="file" (change)="onFileSelected($event)" multiple>
           </div>
         </div>
 
         <div class="buttons">
           <div class="accept-button">
-            <!-- Solo submit, sin (click) duplicado -->
             <button type="submit">Aceptar</button>
           </div>
           <div class="cancel-button">
