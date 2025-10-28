@@ -182,5 +182,14 @@ export class ApiService{
       }
     }
 
+  async deleteProduct(productId: number) {
+    try {
+      const response = await axiosService.delete(`/producto/${productId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error eliminando producto:', error);
+      throw error;
+    }
+  }
 
 }

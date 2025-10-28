@@ -140,9 +140,9 @@
                 <button class="cnl-button" (click)="cerrarEditProduct()">Cancelar</button>
               </div>
             </div>
-            <a class="btnEliminar" href="#" title="Eliminar">
-              <i class="fas fa-trash"></i>
-            </a>
+          <a class="btnEliminar" (click)="deleteProduct(product.id)" title="Eliminar">
+            <i class="fas fa-trash"></i>
+          </a>
           </td>
         </tr>
       }

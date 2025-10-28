@@ -126,6 +126,21 @@ export class MyProductComponent implements OnInit {
     }
   }
 
+  // Eliminar producto
+  async deleteProduct(productId: number) {
+    if (!confirm('¿Seguro que deseas eliminar este producto?')) return;
+
+    try {
+      await this.apiService.deleteProduct(productId);
+      await this.loadProducts(); // refresca la lista desde el backend
+      this.successMsg = 'Producto eliminado con éxito';
+      this.errorMsg = '';
+    } catch (err: any) {
+      console.error('Error al eliminar producto:', err);
+      this.errorMsg = err?.response?.data?.message || 'No se pudo eliminar el producto';
+    }
+  }
+
   // --- Paginación ---
   prevPage() {
     if (this.page > 1) {
