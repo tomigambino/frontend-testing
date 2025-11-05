@@ -71,7 +71,7 @@ input:focus {
 #surname::placeholder,
 #email::placeholder,
 #password::placeholder {
-  color: var(--navbar-color);
+  color: gray;
 }
 
 /*---------------------- Mensajes de Error ----------------------*/

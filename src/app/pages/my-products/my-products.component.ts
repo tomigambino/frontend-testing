@@ -100,18 +100,10 @@ export class MyProductComponent implements OnInit {
       return;
     }
 
-    const payload = {
-      ...this.productForm.value,
-      isActive: true // siempre activo
-    };
-
-    console.log('Payload enviado:', payload);
-
     try {
       const { productTypeId, name, description, price, stock } = this.productForm.value;
-      const newProductId = await this.apiService.createProduct(productTypeId, name, description, price, stock );
+      await this.apiService.createProduct(name, description, price, stock, productTypeId );
 
-      console.log('Producto creado con ID:', newProductId);
       this.successMsg = 'Producto creado con éxito';
       this.errorMsg = '';
 
