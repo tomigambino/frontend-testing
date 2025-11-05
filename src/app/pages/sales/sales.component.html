@@ -28,9 +28,6 @@
           <td [attr.colspan]="3">
             <div class="productosVenta">
               <div class="productosVenta__header">
-                <span>Producto</span>
-                <span>Cantidad</span>
-                <span>Precio unitario</span>
               </div>
 
               @for (detail of sale.saleDetail; track detail.product.id) {
