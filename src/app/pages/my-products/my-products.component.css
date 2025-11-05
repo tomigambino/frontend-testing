@@ -260,6 +260,15 @@
   border-radius: 16px;
 }
 
+.product-item-img {
+  padding-bottom: 1rem;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .product-item {
   padding-bottom: 1rem;
   gap: 1rem;
@@ -306,14 +315,20 @@
   font-family: var(--fuente-navbar);
 }
 
-.overlayy {
-   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-  z-index: 999; /* debajo del panel */
+.editProduct{
+  background-color: var(--background-color);
+  top: 50%;
+  left: 50%;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 400px;
+  border-radius: 16px;
 }
 
 /* Labels dentro del modal de agregar producto */
@@ -323,11 +338,34 @@
   align-items: flex-start;
 }
 
+.editProduct .product-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.editProduct .product-item label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #333; /* o usa var(--color-fount) si tenés */
+}
+
 .add-product .product-item label {
   font-size: 0.85rem;
   font-weight: 600;
   margin-bottom: 4px;
   color: #333; /* o usa var(--color-fount) si tenés */
+}
+
+.editProduct .product-item input,
+.editProduct .product-item select{
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  height: 2rem;
+  width: 16rem;
+  padding: 0 0.5rem;
+  font-family: var(--fuente-navbar);
 }
 
 .add-product .product-item input,

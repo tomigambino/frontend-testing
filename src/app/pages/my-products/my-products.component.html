@@ -55,7 +55,7 @@
           </div>
 
           <div class="product-item">
-            <label for="stock">Stock inicial</label>
+            <label for="stock">Stock</label>
             <input id="stock" type="number" placeholder="Stock inicial"
                    formControlName="stock" min="0">
           </div>
@@ -70,7 +70,7 @@
             </select>
           </div>
 
-          <div class="product-item">
+          <div class="product-item-img">
             <label for="images">Imágenes</label>
             <input id="images" type="file" (change)="onFileSelected($event)" multiple>
           </div>
@@ -114,31 +114,55 @@
               <i class="fa-duotone fa-solid fa-pen-to-square"
                  style="--fa-primary-color: #ffffff; --fa-secondary-color: #ffffff;"></i>
             </a>
-            <div class="overlayy" *ngIf="editMenu" (click)="cerrarEditProduct()"></div>
+            <div class="overlay" *ngIf="editMenu" (click)="cerrarEditProduct()"></div>
             <div *ngIf="editMenu" class="editProduct">
+              <div class="title-edit-product">
+                <h2>EDITAR</h2>
+              </div>
               <div class="up">
-                <div class="product-img">
-                  <img src="" alt="">
-                </div>
                 <div class="product-info">
                   <div class="product-item">
-                    <input type="text" placeholder="Nombre del producto">
+                    <label for="name">Nombre del producto</label>
+                    <input id="name" type="text" placeholder="Paleta...">
                   </div>
                   <div class="product-item">
-                    <input type="text" placeholder="Descripción del producto">
+                    <label for="description">Descripcion del producto</label>
+                    <input id="description" type="text" placeholder="Descripción del producto">
                   </div>
                   <div class="product-item">
-                    <input type="text" placeholder="Precio del producto">
+                    <label for="price">Precio del producto</label>
+                    <input id="price" type="text" placeholder="$10.000">
                   </div>
                   <div class="product-item">
-                    <input type="file" (change)="onFileSelected($event)" placeholder="Imagen del producto">
+                    <label for="stock">Stock</label>
+                    <input id="stock" type="number" placeholder="Stock inicial"
+                      formControlName="stock" min="0">
+                  </div>
+                  <div class="product-item">
+                    <label for="productType">Tipo de producto</label>
+                    <select id="productType" formControlName="productTypeId">
+                      <option [ngValue]="null">Selecciona tipo de producto</option>
+                      <option *ngFor="let type of productTypes" [ngValue]="type.id">
+                        {{ type.name }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="product-item-img">
+                    <label for="images">Imagenes</label>
+                    <input id="images" type="file" (change)="onFileSelected($event)" placeholder="Imagen del producto">
                   </div>
                 </div>
               </div>
               <div class="down">
-                <button class="acp-button">Aceptar</button>
-                <button class="cnl-button" (click)="cerrarEditProduct()">Cancelar</button>
-              </div>
+                <div class="buttons">
+                  <div class="accept-button">
+                    <button type="submit">Aceptar</button>
+                  </div>
+                  <div class="cancel-button">
+                    <button  (click)="cerrarEditProduct()">Cancelar</button>
+                  </div>
+                </div>
+              </div>  
             </div>
           <a class="btnEliminar" (click)="deleteProduct(product.id)" title="Eliminar">
             <i class="fas fa-trash"></i>
