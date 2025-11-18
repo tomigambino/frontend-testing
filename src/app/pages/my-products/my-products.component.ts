@@ -100,9 +100,23 @@ export class MyProductComponent implements OnInit {
       return;
     }
 
+    // Validamos que se hayan seleccionado imágenes
+    if (this.selectedFiles.length === 0) {
+      this.errorMsg = 'Debe seleccionar al menos una imagen';
+      return;
+    }
+
     try {
       const { productTypeId, name, description, price, stock } = this.productForm.value;
-      await this.apiService.createProduct(name, description, price, stock, productTypeId );
+      
+      await this.apiService.createProduct(
+        name, 
+        description, 
+        price, 
+        stock, 
+        productTypeId,
+        this.selectedFiles // Le pasamos también las imágenes
+      );
 
       this.successMsg = 'Producto creado con éxito';
       this.errorMsg = '';
@@ -111,6 +125,7 @@ export class MyProductComponent implements OnInit {
         this.cerrarAddProduct();
         await this.loadProducts();
         this.productForm.reset({ price: 0, stock: 0 });
+        this.selectedFiles = [];
       }, 1500);
     } catch (err) {
       console.error('Error al crear producto:', err);
@@ -156,7 +171,11 @@ export class MyProductComponent implements OnInit {
   // --- UI ---
   toggleMenu() { this.menuOpen = !this.menuOpen; }
   addProduct() { this.addMenu = true; }
-  cerrarAddProduct() { this.addMenu = false; this.productForm.reset({ price: 0, stock: 0, isActive: true }); }
+  cerrarAddProduct() { 
+    this.addMenu = false; 
+    this.productForm.reset({ price: 0, stock: 0, isActive: true }); 
+    this.selectedFiles = []; 
+  }
   editProduct() { this.editMenu = true; }
   cerrarEditProduct() { this.editMenu = false; }
 }

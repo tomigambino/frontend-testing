@@ -158,23 +158,33 @@ export class ApiService{
       description: string,
       price: number,
       stock: number,
-      productTypeId: number
+      productTypeId: number,
+      images: File[]
     ): Promise<number> {
       try {
-        // Armo el payload que espera tu backend
-        const payload = {
-          productTypeId,
-          name,
-          description,
-          price,
-          stock,
-          isActive: true, // siempre activo al crear
-        };
+        // Crear FormData en lugar de JSON
+        const formData = new FormData();
+        
+        // Agregar los campos del producto
+        formData.append('productTypeId', productTypeId.toString());
+        formData.append('name', name);
+        formData.append('description', description);
+        formData.append('price', price.toString());
+        formData.append('stock', stock.toString());
+        formData.append('isActive', 'true');
+        
+        // Agregar las imágenes
+        images.forEach((file) => {
+          formData.append('images', file);
+        });
 
-        // Hago el POST al endpoint protegido
-        const response = await axiosPrivate.post('/producto', payload);
+        // Hacer el POST con FormData
+        const response = await axiosPrivate.post('/producto', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
 
-        // Devuelvo el id del producto creado
         return response.data.id;
       } catch (error) {
         console.error('Error creating product:', error);
