@@ -14,7 +14,8 @@ import { AuthService } from '../../service/auth.service';
 
 export class LoginComponent {
 
-  public loginForm!: FormGroup // Formulario para el inicio de sesión
+  public loginForm!: FormGroup
+  errorMsg: string = ''
 
   constructor(
     private fb: FormBuilder,
@@ -22,9 +23,6 @@ export class LoginComponent {
     private authService: AuthService
   ) { }
 
-  errorMsg: string = '' // Mensaje de error para mostrar al usuario
-
-  // Método para inicializar el formulario y establecer las validaciones
   async ngOnInit() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]],
@@ -32,23 +30,27 @@ export class LoginComponent {
     })
   }
 
-  // Método para navegar a la página sign-up
   goToSignUp() {
     this.router.navigate(['/sign-up']);
   }
 
-  // Método para manejar el inicio de sesión
   async getDataLogin() {
+    // Limpiar mensaje de error previo
+    this.errorMsg = '';
+    
     if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched(); // Marca todos los campos como tocados para mostrar errores de validación
-      this.errorMsg = 'La contraseña es incorrecta. Inténtalo de nuevo.';
+      this.loginForm.markAllAsTouched();
+      this.errorMsg = 'Por favor, completa correctamente todos los campos.';
+      return; // Importante: detener ejecución aquí
     }
+    
     try {
-      const { email, password } = this.loginForm.value; // Obtiene los valores del formulario
-      await this.authService.login(email, password); // Llama al servicio para iniciar sesión
-      await this.router.navigate(['/home']); // Navega a home después del inicio de sesión exitoso
-    } catch (e) {
-      this.errorMsg = 'La contraseña es incorrecta. Inténtalo de nuevo.';
+      const { email, password } = this.loginForm.value;
+      await this.authService.login(email, password);
+      await this.router.navigate(['/home']);
+    } catch (e: any) {
+      // Mostrar el mensaje específico del error
+      this.errorMsg = e.message;
       console.error(e);
     }
   }

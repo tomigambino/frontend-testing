@@ -18,8 +18,9 @@ export class AuthService {
         localStorage.setItem('accessToken', response.data.accessToken) // Guarda el token en localStorage
         localStorage.setItem('roleId', response.data.roleId) // Guarda el roleId en localStorage
         return;
-    } catch (error) {
-        throw new Error('Datos incorrectos o usuario no registrado');
+    } catch (error: any) {
+        const errorMessage = error.response?.data?.message || 'Datos incorrectos o usuario no registrado';
+        throw new Error(errorMessage);
     }
     }
     
