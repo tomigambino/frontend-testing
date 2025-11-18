@@ -21,80 +21,19 @@
       </div>
     </div>
 
-    <a class="btn-create" (click)="addProduct()" title="Create">
+    <a class="btn-create" (click)="addProduct()" title="Crear producto">
       <i class="fa-solid fa-square-plus fa-xl" style="color: #ffffff;"></i>
     </a>
-
-    <div class="overlay" *ngIf="addMenu" (click)="cerrarAddProduct()"></div>
-
-    <!-- Agregar Producto -->
-    <div *ngIf="addMenu" class="add-product">
-      <div class="title-add-product">
-        <h2>AGREGAR PRODUCTO</h2>
-      </div>
-
-      <!-- Reactive Form -->
-      <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-        <div class="body-add-product">
-          <div class="product-item">
-            <label for="name">Nombre del producto</label>
-            <input id="name" type="text" placeholder="Nombre del producto"
-                   formControlName="name">
-          </div>
-
-          <div class="product-item">
-            <label for="description">Descripción del producto</label>
-            <input id="description" type="text" placeholder="Descripción del producto"
-                   formControlName="description">
-          </div>
-
-          <div class="product-item">
-            <label for="price">Precio del producto</label>
-            <input id="price" type="number" placeholder="Precio del producto"
-                   formControlName="price" min="0">
-          </div>
-
-          <div class="product-item">
-            <label for="stock">Stock</label>
-            <input id="stock" type="number" placeholder="Stock inicial"
-                   formControlName="stock" min="0">
-          </div>
-
-          <div class="product-item">
-            <label for="productType">Tipo de producto</label>
-            <select id="productType" formControlName="productTypeId">
-              <option [ngValue]="null">Selecciona tipo de producto</option>
-              <option *ngFor="let type of productTypes" [ngValue]="type.id">
-                {{ type.name }}
-              </option>
-            </select>
-          </div>
-
-          <div class="product-item-img">
-            <label for="images">Imágenes</label>
-            <input id="images" type="file" (change)="onFileSelected($event)" multiple>
-          </div>
-        </div>
-
-        <div class="buttons">
-          <div class="accept-button">
-            <button type="submit">Aceptar</button>
-          </div>
-          <div class="cancel-button">
-            <button type="button" (click)="cerrarAddProduct()">Cancelar</button>
-          </div>
-        </div>
-      </form>
-    </div>
   </div>
 
+  <!-- TABLA DE PRODUCTOS -->
   <table id="tablaProductos">
     <thead>
       <tr>
-        <th class="columnaCentral">ID Producto</th>
+        <th class="columnaCentral">ID</th>
         <th class="columnaImagen">Imagen</th>
         <th class="columnaCentral">Nombre</th>
-        <th class="columnaCentral">Descripcion</th>
+        <th class="columnaCentral">Descripción</th>
         <th class="columnaCentral">Precio</th>
         <th class="columnaCentral">Acciones</th>
       </tr>
@@ -110,72 +49,173 @@
           <td>{{ product.description }}</td>
           <td>{{ '$' + product.price }}</td>
           <td>
-            <a class="btnEditar" (click)="editProduct()" title="Editar">
+            <a class="btnEditar" (click)="editProduct(product)" title="Editar">
               <i class="fa-duotone fa-solid fa-pen-to-square"
                  style="--fa-primary-color: #ffffff; --fa-secondary-color: #ffffff;"></i>
             </a>
-            <div class="overlay" *ngIf="editMenu" (click)="cerrarEditProduct()"></div>
-            <div *ngIf="editMenu" class="editProduct">
-              <div class="title-edit-product">
-                <h2>EDITAR</h2>
-              </div>
-              <div class="up">
-                <div class="product-info">
-                  <div class="product-item">
-                    <label for="name">Nombre del producto</label>
-                    <input id="name" type="text" placeholder="Paleta...">
-                  </div>
-                  <div class="product-item">
-                    <label for="description">Descripcion del producto</label>
-                    <input id="description" type="text" placeholder="Descripción del producto">
-                  </div>
-                  <div class="product-item">
-                    <label for="price">Precio del producto</label>
-                    <input id="price" type="text" placeholder="$10.000">
-                  </div>
-                  <div class="product-item">
-                    <label for="stock">Stock</label>
-                    <input id="stock" type="number" placeholder="Stock inicial"
-                      formControlName="stock" min="0">
-                  </div>
-                  <div class="product-item">
-                    <label for="productType">Tipo de producto</label>
-                    <select id="productType" formControlName="productTypeId">
-                      <option [ngValue]="null">Selecciona tipo de producto</option>
-                      <option *ngFor="let type of productTypes" [ngValue]="type.id">
-                        {{ type.name }}
-                      </option>
-                    </select>
-                  </div>
-                  <div class="product-item-img">
-                    <label for="images">Imagenes</label>
-                    <input id="images" type="file" (change)="onFileSelected($event)" placeholder="Imagen del producto">
-                  </div>
-                </div>
-              </div>
-              <div class="down">
-                <div class="buttons">
-                  <div class="accept-button">
-                    <button type="submit">Aceptar</button>
-                  </div>
-                  <div class="cancel-button">
-                    <button  (click)="cerrarEditProduct()">Cancelar</button>
-                  </div>
-                </div>
-              </div>  
-            </div>
-          <a class="btnEliminar" (click)="deleteProduct(product.id)" title="Eliminar">
-            <i class="fas fa-trash"></i>
-          </a>
+            
+            <a class="btnEliminar" (click)="deleteProduct(product.id)" title="Eliminar">
+              <i class="fas fa-trash"></i>
+            </a>
           </td>
         </tr>
       }
     </tbody>
   </table>
+
+  <!-- PAGINACIÓN -->
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="page === 1">‹ Anterior</button>
+    <div class="page-info">Página {{ page }} de {{ totalPages }}</div>
+    <button (click)="nextPage()" [disabled]="page === totalPages">Siguiente ›</button>
+  </div>
 </div>
 
-<div class="pagination">
-  <button (click)="prevPage()" [disabled]="page === 1">‹ Anterior</button>
-  <div class="page-info">Página {{ page }} de {{ totalPages }}</div>
-  <button (click)="nextPage()" [disabled]="page === totalPages">Siguiente ›</button>
+<!-- OVERLAY Y MODAL AGREGAR PRODUCTO -->
+<div class="overlay" *ngIf="addMenu" (click)="cerrarAddProduct()"></div>
+<div *ngIf="addMenu" class="add-product">
+  <div class="title-add-product">
+    <h2>AGREGAR PRODUCTO</h2>
+  </div>
+
+  <!-- Formulario -->
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="body-add-product">
+      <div class="product-item">
+        <label for="add-name">Nombre del producto</label>
+        <input id="add-name" type="text" placeholder="Nombre del producto"
+               formControlName="name">
+      </div>
+
+      <div class="product-item">
+        <label for="add-description">Descripción del producto</label>
+        <input id="add-description" type="text" placeholder="Descripción del producto"
+               formControlName="description">
+      </div>
+
+      <div class="product-item">
+        <label for="add-price">Precio del producto</label>
+        <input id="add-price" type="number" placeholder="Precio del producto"
+               formControlName="price" min="0">
+      </div>
+
+      <div class="product-item">
+        <label for="add-stock">Stock</label>
+        <input id="add-stock" type="number" placeholder="Stock inicial"
+               formControlName="stock" min="0">
+      </div>
+
+      <div class="product-item">
+        <label for="add-productType">Tipo de producto</label>
+        <select id="add-productType" formControlName="productTypeId">
+          <option [ngValue]="null">Selecciona tipo de producto</option>
+          <option *ngFor="let type of productTypes" [ngValue]="type.id">
+            {{ type.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="product-item-img">
+        <label for="add-images">Imágenes *</label>
+        <input id="add-images" type="file" (change)="onFileSelected($event)"
+               accept="image/jpeg,image/jpg,image/png,image/webp" multiple required>
+        <small *ngIf="selectedFiles.length > 0">
+          {{ selectedFiles.length }} archivo(s) seleccionado(s)
+        </small>
+      </div>
+    </div>
+
+    <!-- Mensajes -->
+    <div *ngIf="successMsg" class="message message-success">
+      {{ successMsg }}
+    </div>
+    <div *ngIf="errorMsg" class="message message-error">
+      {{ errorMsg }}
+    </div>
+
+    <div class="buttons">
+      <div class="accept-button">
+        <button type="submit">Crear</button>
+      </div>
+      <div class="cancel-button">
+        <button type="button" (click)="cerrarAddProduct()">Cancelar</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- OVERLAY Y MODAL EDITAR PRODUCTO -->
+<div class="overlay" *ngIf="editMenu" (click)="cerrarEditProduct()"></div>
+<div *ngIf="editMenu" class="editProduct">
+  <div class="title-edit-product">
+    <h2>EDITAR PRODUCTO</h2>
+  </div>
+
+  <!-- Formulario -->
+  <form [formGroup]="productForm" (ngSubmit)="onSubmitEdit()">
+    <div class="up">
+      <div class="product-info">
+        <div class="product-item">
+          <label for="edit-name">Nombre del producto</label>
+          <input id="edit-name" type="text" formControlName="name">
+        </div>
+
+        <div class="product-item">
+          <label for="edit-description">Descripción del producto</label>
+          <input id="edit-description" type="text" formControlName="description">
+        </div>
+
+        <div class="product-item">
+          <label for="edit-price">Precio del producto</label>
+          <input id="edit-price" type="number" formControlName="price" min="0">
+        </div>
+
+        <div class="product-item">
+          <label for="edit-stock">Stock</label>
+          <input id="edit-stock" type="number" formControlName="stock" min="0">
+        </div>
+
+        <div class="product-item">
+          <label for="edit-productType">Tipo de producto</label>
+          <select id="edit-productType" formControlName="productTypeId">
+            <option [ngValue]="null">Selecciona tipo de producto</option>
+            <option *ngFor="let type of productTypes" [ngValue]="type.id">
+              {{ type.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="product-item-img">
+          <label for="edit-images">Imágenes (opcional)</label>
+          <input id="edit-images" type="file" (change)="onFileSelected($event)"
+                 accept="image/jpeg,image/jpg,image/png,image/webp" multiple>
+          <small *ngIf="selectedFiles.length > 0">
+            {{ selectedFiles.length }} archivo(s) seleccionado(s)
+          </small>
+          <small *ngIf="selectedFiles.length === 0 && selectedProduct">
+            Se mantendrán las imágenes actuales
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensajes -->
+    <div *ngIf="successMsg" class="message message-success">
+      {{ successMsg }}
+    </div>
+    <div *ngIf="errorMsg" class="message message-error">
+      {{ errorMsg }}
+    </div>
+
+    <div class="down">
+      <div class="buttons">
+        <div class="accept-button">
+          <button type="submit">Actualizar</button>
+        </div>
+        <div class="cancel-button">
+          <button type="button" (click)="cerrarEditProduct()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>

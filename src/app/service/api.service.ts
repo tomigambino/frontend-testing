@@ -192,6 +192,47 @@ export class ApiService{
       }
     }
 
+  async updateProduct(
+    productId: number,
+    name: string,
+    description: string,
+    price: number,
+    stock: number,
+    productTypeId: number,
+    images?: File[]
+  ): Promise<any> {
+    try {
+      const formData = new FormData();
+      
+      // Agregar los campos del producto
+      formData.append('productTypeId', productTypeId.toString());
+      formData.append('name', name);
+      formData.append('description', description);
+      formData.append('price', price.toString());
+      formData.append('stock', stock.toString());
+      formData.append('isActive', 'true');
+      
+      // Solo agregar imágenes si se seleccionaron nuevas
+      if (images && images.length > 0) {
+        images.forEach((file) => {
+          formData.append('images', file);
+        });
+      }
+
+      // PATCH al endpoint con el ID del producto
+      const response = await axiosPrivate.patch(`/producto/${productId}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error('Error updating product:', error);
+      throw error;
+    }
+  }
+
   async deleteProduct(productId: number) {
     try {
       const response = await axiosPrivate.delete(`/producto/${productId}`);
