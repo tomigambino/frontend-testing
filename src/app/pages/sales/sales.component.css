@@ -52,7 +52,7 @@
 /* Cada ítem de detalle: 3 subcolumnas */
 .productoDetalle {
   display: grid;
-  grid-template-columns: 1fr 100px 140px; /* coincide con el header */
+  grid-template-columns: 2fr 1fr 1fr;  /* coincide con el header */
   align-items: center;
   gap: 8px;
   padding: 6px 0;
@@ -72,7 +72,9 @@
 
 .productoDetalle__qty,
 .productoDetalle__price {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-weight: 500;
 }
 
