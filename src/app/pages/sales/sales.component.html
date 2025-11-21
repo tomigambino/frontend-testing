@@ -9,7 +9,7 @@
   <table id="tablaVentas">
     <thead>
       <tr>
-        <th class="columnaCentral">ID Venta</th>
+        <th class="columnaCentral">ID</th>
         <th class="columnaImagen">Producto</th>
         <th class="columnaCentral">Cantidad</th>
         <th class="columnaCentral">Precio</th>
@@ -22,7 +22,7 @@
       @for (sale of sales; track sale.id) {
         <tr class="venta-row">
           <!-- ID de la venta -->
-          <td>V-{{ sale.id }}</td>
+          <td>{{ sale.id }}</td>
 
           <!-- Celda fusionada: Producto + Cantidad + Precio -->
           <td [attr.colspan]="3">
@@ -91,11 +91,11 @@
     </button>
 
     <div class="modal-body">
-      <p>Nombre: {{ customer?.firstName }}</p>
-      <p>Apellido: {{ customer?.lastName }}</p>
-      <p>Email: {{ customer?.email }}</p>
-      <p>Teléfono: {{ customer?.phone }}</p>
-      <p>Fecha de Registro: {{ customer?.registrationDate | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Nombre:</strong> {{ customer?.firstName }}</p>
+      <p><strong>Apellido:</strong> {{ customer?.lastName }}</p>
+      <p><strong>Email:</strong> {{ customer?.email }}</p>
+      <p><strong>Teléfono:</strong> {{ customer?.phone }}</p>
+      <p><strong>Fecha de Registro:</strong> {{ customer?.registrationDate | date:'dd/MM/yyyy' }}</p>
       <!-- Agrega aquí los campos que necesites -->
     </div>
   </div>
